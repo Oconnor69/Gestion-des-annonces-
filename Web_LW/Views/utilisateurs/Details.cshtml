@@ -1,0 +1,12 @@
+﻿@model Web_LW.Models.Utilisateur
+
+<h2>Détails utilisateur</h2>
+
+<p><strong>Nom :</strong> @Model.Nom</p>
+<p><strong>Email :</strong> @Model.Email</p>
+<p><strong>Téléphone :</strong> @Model.Telephone</p>
+<p><strong>Rôle :</strong> @Model.Role</p>
+<p><strong>Actif :</strong> @(Model.IsActive ? "Oui" : "Non")</p>
+
+<a href="/Utilisateurs/Edit/@Model.Id" class="btn btn-warning">Modifier</a>
+<a href="/Utilisateurs/Index" class="btn btn-secondary">Retour</a>

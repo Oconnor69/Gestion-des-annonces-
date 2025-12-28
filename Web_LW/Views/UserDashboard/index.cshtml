@@ -1,0 +1,183 @@
+﻿@{
+    ViewData["Title"] = "Mon Dashboard";
+}
+
+<style>
+    .user-layout { display: grid; grid-template-columns: 260px 1fr; min-height: calc(100vh - 140px); gap: 2rem; }
+    .user-sidebar { 
+        background: linear-gradient(180deg, #0f0c29 0%, #302b63 50%, #24243e 100%); 
+        color: #fff; 
+        border-radius: 20px; 
+        padding: 2rem 1.5rem; 
+        box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    }
+    .user-sidebar .brand { 
+        font-size: 1.4rem; 
+        font-weight: 800; 
+        margin-bottom: 2rem; 
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .user-menu { list-style: none; padding: 0; margin: 0; }
+    .user-menu li { margin-bottom: 0.5rem; }
+    .user-menu a { 
+        display: flex; 
+        align-items: center; 
+        gap: 1rem; 
+        padding: 1rem 1.25rem; 
+        border-radius: 12px; 
+        color: rgba(255,255,255,0.7); 
+        text-decoration: none; 
+        transition: all 0.3s ease;
+        font-weight: 500;
+    }
+    .user-menu a:hover, .user-menu a.active { 
+        background: linear-gradient(135deg, rgba(17, 153, 142, 0.3) 0%, rgba(56, 239, 125, 0.3) 100%);
+        color: #fff;
+        transform: translateX(5px);
+    }
+    .user-menu .icon { 
+        width: 40px; 
+        height: 40px; 
+        border-radius: 10px; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center;
+        background: rgba(255,255,255,0.1);
+        font-size: 1.1rem;
+    }
+    .user-content { 
+        background: rgba(255,255,255,0.95); 
+        border-radius: 20px; 
+        padding: 2rem; 
+        box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    }
+    .welcome-banner {
+        background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        border-radius: 16px;
+        padding: 2rem;
+        color: white;
+        margin-bottom: 2rem;
+        position: relative;
+        overflow: hidden;
+    }
+    .welcome-banner::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -20%;
+        width: 300px;
+        height: 300px;
+        background: rgba(255,255,255,0.1);
+        border-radius: 50%;
+    }
+    .quick-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+    .tile {
+        background: white;
+        border-radius: 16px;
+        padding: 1.75rem;
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        border: 2px solid transparent;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .tile:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+    }
+    .tile .tile-icon {
+        width: 70px;
+        height: 70px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+    .tile.create .tile-icon { background: linear-gradient(135deg, rgba(17, 153, 142, 0.2) 0%, rgba(56, 239, 125, 0.2) 100%); }
+    .tile.create:hover { border-color: #11998e; }
+    .tile.view .tile-icon { background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%); }
+    .tile.view:hover { border-color: #667eea; }
+    .tile.explore .tile-icon { background: linear-gradient(135deg, rgba(240, 147, 251, 0.2) 0%, rgba(245, 87, 108, 0.2) 100%); }
+    .tile.explore:hover { border-color: #f5576c; }
+    @@media (max-width: 992px) {
+        .user-layout { grid-template-columns: 1fr; }
+        .user-sidebar { border-radius: 16px; }
+    }
+</style>
+
+<div class="container-fluid py-4">
+    <div class="user-layout">
+        <aside class="user-sidebar">
+            <div class="brand">🏠 Mon Espace</div>
+            <ul class="user-menu">
+                <li>
+                    <a href="#" class="active">
+                        <span class="icon">📊</span>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a asp-controller="Annonces" asp-action="MesAnnonces">
+                        <span class="icon">📢</span>
+                        <span>Mes annonces</span>
+                    </a>
+                </li>
+                <li>
+                    <a asp-controller="Annonces" asp-action="ChoisirCategorie">
+                        <span class="icon">➕</span>
+                        <span>Creer annonce</span>
+                    </a>
+                </li>
+                <li>
+                    <a asp-controller="Explorer" asp-action="Index">
+                        <span class="icon">🧭</span>
+                        <span>Explorer</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="mt-auto pt-4" style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 2rem;">
+                <a asp-controller="Auth" asp-action="Logout" class="btn btn-outline-light w-100">
+                    <span class="me-2">🚪</span> Deconnexion
+                </a>
+            </div>
+        </aside>
+
+        <section class="user-content">
+            <div class="welcome-banner">
+                <div class="position-relative" style="z-index: 1;">
+                    <h1 class="fw-bold mb-2">Bienvenue sur votre espace 👋</h1>
+                    <p class="opacity-90 mb-0">Gerez vos annonces et decouvrez de nouvelles opportunites</p>
+                </div>
+            </div>
+
+            <h5 class="fw-bold mb-4"><span class="me-2">🚀</span>Que souhaitez-vous faire ?</h5>
+            <div class="quick-tiles">
+                <a asp-controller="Annonces" asp-action="ChoisirCategorie" class="tile create">
+                    <div class="tile-icon">➕</div>
+                    <h5 class="fw-bold mb-2">Creer une annonce</h5>
+                    <p class="text-muted small mb-0">Publiez votre bien en quelques clics</p>
+                </a>
+                <a asp-controller="Annonces" asp-action="MesAnnonces" class="tile view">
+                    <div class="tile-icon">📋</div>
+                    <h5 class="fw-bold mb-2">Mes annonces</h5>
+                    <p class="text-muted small mb-0">Consultez et gerez vos publications</p>
+                </a>
+                <a asp-controller="Explorer" asp-action="Index" class="tile explore">
+                    <div class="tile-icon">🔍</div>
+                    <h5 class="fw-bold mb-2">Explorer</h5>
+                    <p class="text-muted small mb-0">Decouvrez toutes les annonces</p>
+                </a>
+            </div>
+        </section>
+    </div>
+</div>

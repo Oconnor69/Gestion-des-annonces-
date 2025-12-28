@@ -1,0 +1,17 @@
+﻿@model Web_LW.Models.Categorie
+
+<h2>Ajouter une Catégorie</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="Nom"></label>
+        <input asp-for="Nom" class="form-control" required />
+        <span asp-validation-for="Nom" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success mt-2">Enregistrer</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

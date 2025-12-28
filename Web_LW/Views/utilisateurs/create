@@ -1,0 +1,16 @@
+
+@model Web_LW.Models.Utilisateur
+
+<h1>TEST CREATE USER</h1>
+
+<form method="post" action="/Utilisateurs/Create">
+    <input type="text" name="Nom" placeholder="Nom" value="TestNom" /><br />
+    <input type="text" name="Email" placeholder="Email" value="test@test.com" /><br />
+    <input type="text" name="MotDePasse" placeholder="Password" value="test123" /><br />
+    <input type="text" name="Telephone" placeholder="Telephone" value="0123456789" /><br />
+    <input type="text" name="Role" value="User" /><br />
+    <button type="submit">SUBMIT</button>
+</form>
+
+<hr />
+<p>Formulaire test minimaliste - Si ça marche, le problème vient de votre layout/scripts</p>

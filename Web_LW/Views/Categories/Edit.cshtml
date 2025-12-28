@@ -1,0 +1,14 @@
+﻿@model Web_LW.Models.Categorie
+
+<h2>Modifier la Catégorie</h2>
+
+<form method="post">
+    <input type="hidden" name="Id" value="@Model.Id" />
+
+    <div class="form-group">
+        <label>Nom</label>
+        <input type="text" name="Nom" class="form-control" value="@Model.Nom" required />
+    </div>
+
+    <button type="submit" class="btn btn-success mt-2">Modifier</button>
+</form>

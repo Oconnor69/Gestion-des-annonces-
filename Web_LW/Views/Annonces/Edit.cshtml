@@ -1,0 +1,261 @@
+﻿@model Web_LW.Models.Annonce
+
+@{
+    ViewData["Title"] = "Modifier l'annonce";
+}
+
+<div class="container mt-4">
+    <h2><i class="bi bi-pencil-square"></i> Modifier l'annonce</h2>
+
+    <div asp-validation-summary="All" class="alert alert-danger" role="alert"></div>
+
+    <form asp-action="Edit" method="post" enctype="multipart/form-data" id="mainForm">
+        <input type="hidden" asp-for="Id" />
+
+        <div class="card mb-3 shadow-sm">
+            <div class="card-header bg-light">Informations Générales</div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">Titre *</label>
+                        <input asp-for="Titre" name="annonceModif.Titre" class="form-control" required />
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label fw-bold">Prix (DH) *</label>
+                        <input asp-for="Prix" name="annonceModif.Prix" class="form-control" required />
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label fw-bold">Ville *</label>
+                        <input asp-for="Ville" name="annonceModif.Ville" class="form-control" required />
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label fw-bold">Statut</label>
+                        <select asp-for="Statut" name="annonceModif.Statut" class="form-select">
+                            <option value="Active">Active</option>
+                            <option value="Vendue">Vendue</option>
+                            <option value="Louee">Louee</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="form-label fw-bold">Description *</label>
+                    <textarea asp-for="Description" name="annonceModif.Description" class="form-control" rows="5" required></textarea>
+                </div>
+            </div>
+        </div>
+
+        @if (Model.Voiture != null)
+        {
+            <div class="card mb-3 border-primary shadow-sm">
+                <div class="card-header bg-primary text-white"><i class="bi bi-car-front"></i> Détails Voiture</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label>Marque</label>
+                            <input asp-for="Voiture.Marque" name="voitureModif.Marque" class="form-control" />
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label>Modèle</label>
+                            <input asp-for="Voiture.Modele" name="voitureModif.Modele" class="form-control" />
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label>Année</label>
+                            <input asp-for="Voiture.Annee" name="voitureModif.Annee" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label>Kilométrage</label>
+                            <input asp-for="Voiture.Kilometrage" name="voitureModif.Kilometrage" class="form-control" />
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label>Boîte Vitesse</label>
+                            <select asp-for="Voiture.BoiteVitesse" name="voitureModif.BoiteVitesse" class="form-select">
+                                <option value="Manuelle">Manuelle</option>
+                                <option value="Automatique">Automatique</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label>Carburant</label>
+                            <select asp-for="Voiture.Carburant" name="voitureModif.Carburant" class="form-select">
+                                <option value="Diesel">Diesel</option>
+                                <option value="Essence">Essence</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if (Model.Immobilier != null)
+        {
+            <div class="card mb-3 border-success shadow-sm">
+                <div class="card-header bg-success text-white"><i class="bi bi-house-door"></i> Détails Immobilier</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="fw-bold">Type de Transaction</label>
+                            <select asp-for="Immobilier.TypeTransaction" name="immoModif.TypeTransaction" class="form-select">
+                                <option value="Vente">Vente</option>
+                                <option value="Location">Location</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="fw-bold">Type de Bien</label>
+                            <select asp-for="Immobilier.TypeBien" name="immoModif.TypeBien" class="form-select">
+                                <option value="Appartement">Appartement</option>
+                                <option value="Maison">Maison</option>
+                                <option value="Villa">Villa</option>
+                                <option value="Terrain">Terrain</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="fw-bold">État du Bien</label>
+                            <select asp-for="Immobilier.EtatBien" name="immoModif.EtatBien" class="form-select">
+                                <option value="Bon etat">Bon état</option>
+                                <option value="Neuf">Neuf</option>
+                                <option value="A renover">À rénover</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <label>Surface (m²)</label>
+                            <input asp-for="Immobilier.Surface" name="immoModif.Surface" class="form-control" />
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label>Chambres</label>
+                            <input asp-for="Immobilier.NombreChambres" name="immoModif.NombreChambres" class="form-control" />
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label>Salles de bain</label>
+                            <input asp-for="Immobilier.NombreSallesBain" name="immoModif.NombreSallesBain" class="form-control" />
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label>Année Const.</label>
+                            <input asp-for="Immobilier.AnneeConstruction" name="immoModif.AnneeConstruction" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label>Orientation</label>
+                            <select asp-for="Immobilier.Orientation" name="immoModif.Orientation" class="form-select">
+                                <option value="">-- Choisir --</option>
+                                <option value="Sud">Sud</option>
+                                <option value="Nord">Nord</option>
+                                <option value="Est">Est</option>
+                                <option value="Ouest">Ouest</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label>Étage</label>
+                            <input asp-for="Immobilier.Etage" name="immoModif.Etage" class="form-control" />
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label>Nb Étages Immeuble</label>
+                            <input asp-for="Immobilier.NombreEtages" name="immoModif.NombreEtages" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="row bg-light p-2 mb-3 rounded">
+                        <div class="col-md-6">
+                            <label>Loyer (si location)</label>
+                            <input asp-for="Immobilier.LoyerMensuel" name="immoModif.LoyerMensuel" class="form-control" />
+                        </div>
+                        <div class="col-md-6">
+                            <label>Caution (si location)</label>
+                            <input asp-for="Immobilier.Caution" name="immoModif.Caution" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-md-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" asp-for="Immobilier.Ascenseur" name="immoModif.Ascenseur" />
+                                <label class="form-check-label">Ascenseur</label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" asp-for="Immobilier.Jardin" name="immoModif.Jardin" />
+                                <label class="form-check-label">Jardin</label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" asp-for="Immobilier.Parking" name="immoModif.Parking" />
+                                <label class="form-check-label">Parking</label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" asp-for="Immobilier.Meuble" name="immoModif.Meuble" />
+                                <label class="form-check-label">Meublé</label>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mt-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" asp-for="Immobilier.Balcon" name="immoModif.Balcon" />
+                                <label class="form-check-label">Balcon</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="card mb-3 shadow-sm">
+            <div class="card-header">Gestion des photos</div>
+            <div class="card-body">
+                <div class="row">
+                    @if (Model.Photos != null && Model.Photos.Any())
+                    {
+                        @foreach (var photo in Model.Photos)
+                        {
+                            <div class="col-md-3 col-6 mb-3">
+                                <div class="position-relative border rounded">
+                                    <img src="@photo.Url" class="img-fluid rounded" style="height: 150px; width: 100%; object-fit: cover;" />
+
+                                    <button type="button"
+                                            class="btn btn-danger btn-sm position-absolute top-0 end-0 rounded-circle m-1"
+                                            onclick="supprimerPhoto(@photo.Id)">
+                                        <i class="bi bi-x"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p class="text-muted p-2">Aucune photo pour l'instant.</p>
+                    }
+                </div>
+
+                <hr />
+                <label class="form-label fw-bold">Ajouter des nouvelles photos</label>
+                <input type="file" name="photos" multiple class="form-control" />
+            </div>
+        </div>
+
+        <div class="d-grid gap-2 mb-5">
+            <button type="submit" class="btn btn-primary btn-lg">Enregistrer les modifications</button>
+            <a asp-action="MesAnnonces" class="btn btn-secondary">Annuler</a>
+        </div>
+    </form>
+</div>
+
+<form id="formDeletePhoto" asp-action="DeletePhoto" method="post" style="display:none;">
+    <input type="hidden" name="photoId" id="inputPhotoId" />
+</form>
+
+<script>
+    // Petite fonction JS pour relier le bouton X au formulaire caché
+    function supprimerPhoto(id) {
+        if (confirm('Voulez-vous vraiment supprimer cette photo ?')) {
+            document.getElementById('inputPhotoId').value = id;
+            document.getElementById('formDeletePhoto').submit();
+        }
+    }
+</script>

@@ -1,0 +1,191 @@
+﻿@{
+    ViewData["Title"] = "Vendre une voiture";
+}
+
+<h2>Déposer une annonce voiture</h2>
+
+<form asp-action="CreateVoiture" method="post" enctype="multipart/form-data">
+
+    <h3>Informations de l'annonce</h3>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label>Titre de l'annonce</label>
+            <input type="text" name="annonce.Titre" class="form-control" required placeholder="Ex: Honda Civic 2020..." />
+        </div>
+        <div class="col-md-3 mb-3">
+            <label>Prix (DH)</label>
+            <input type="number" name="annonce.Prix" class="form-control" required />
+        </div>
+        <div class="col-md-3 mb-3">
+            <label>Ville</label>
+            <input type="text" name="annonce.Ville" class="form-control" required />
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label>Description détaillée (Obligatoire)</label>
+        <textarea name="annonce.Description" class="form-control" rows="4" required placeholder="Décrivez l'état de la voiture, les options, l'entretien..."></textarea>
+    </div>
+
+    <hr />
+
+    <h3>Caractéristiques du véhicule</h3>
+
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <label>Marque</label>
+            <input type="text" name="voiture.Marque" class="form-control" required />
+        </div>
+        <div class="col-md-4 mb-3">
+            <label>Modèle</label>
+            <input type="text" name="voiture.Modele" class="form-control" required />
+        </div>
+        <div class="col-md-4 mb-3">
+            <label>Année</label>
+            <input type="number" name="voiture.Annee" class="form-control" min="1900" max="2025" required />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <label>Kilométrage</label>
+            <input type="number" name="voiture.Kilometrage" class="form-control" required />
+        </div>
+        <div class="col-md-4 mb-3">
+            <label>Puissance (CV)</label>
+            <input type="number" name="voiture.Puissance" class="form-control" />
+        </div>
+        <div class="col-md-4 mb-3">
+            <label>Couleur</label>
+            <input type="text" name="voiture.Couleur" class="form-control" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label>Carburant</label>
+            <select name="voiture.Carburant" class="form-control form-select">
+                <option value="Diesel">Diesel</option>
+                <option value="Essence">Essence</option>
+                <option value="Hybride">Hybride</option>
+                <option value="Electrique">Electrique</option>
+            </select>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label>Boîte de vitesse</label>
+            <select name="voiture.BoiteVitesse" class="form-control form-select">
+                <option value="Manuelle">Manuelle</option>
+                <option value="Automatique">Automatique</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label>État</label>
+            <select name="voiture.Etat" class="form-control form-select">
+                <option value="Occasion">Occasion</option>
+                <option value="Neuf">Neuf</option>
+            </select>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label>Origine</label>
+            <select name="voiture.Origine" class="form-control form-select">
+                <option value="Local">Dédouanée / Local</option>
+                <option value="Importe">Importée (WW)</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label>Nombre de portes</label>
+        <input type="number" name="voiture.NombrePortes" class="form-control" value="5" />
+    </div>
+
+    <h4>Options et Équipements</h4>
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="voiture.Climatisation" value="true" id="clim">
+                <label class="form-check-label" for="clim">Climatisation</label>
+                <input type="hidden" name="voiture.Climatisation" value="false" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="voiture.GPS" value="true" id="gps">
+                <label class="form-check-label" for="gps">GPS</label>
+                <input type="hidden" name="voiture.GPS" value="false" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="voiture.CameraRecul" value="true" id="cam">
+                <label class="form-check-label" for="cam">Caméra de recul</label>
+                <input type="hidden" name="voiture.CameraRecul" value="false" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="voiture.Bluetooth" value="true" id="blue">
+                <label class="form-check-label" for="blue">Bluetooth</label>
+                <input type="hidden" name="voiture.Bluetooth" value="false" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="voiture.ABS" value="true" id="abs">
+                <label class="form-check-label" for="abs">ABS</label>
+                <input type="hidden" name="voiture.ABS" value="false" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="voiture.Airbags" value="true" id="air">
+                <label class="form-check-label" for="air">Airbags</label>
+                <input type="hidden" name="voiture.Airbags" value="false" />
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label>Photos du véhicule</label>
+
+        <div id="photos-container">
+            <input type="file" name="photos" class="form-control mb-2" />
+        </div>
+
+        <button type="button" class="btn btn-secondary btn-sm" onclick="ajouterChampPhoto()">
+            <i class="bi bi-plus-circle"></i> Ajouter une autre photo
+        </button>
+    </div>
+
+    <script>
+        function ajouterChampPhoto() {
+            // 1. Créer un nouvel input
+            var div = document.createElement('div');
+            div.className = 'd-flex gap-2 mb-2'; // Un peu de style Bootstrap
+
+            // Le champ fichier
+            var input = document.createElement('input');
+            input.type = 'file';
+            input.name = 'photos'; // IMPORTANT : Le même nom que dans le contrôleur
+            input.className = 'form-control';
+
+            // Bouton pour supprimer la ligne (optionnel mais pratique)
+            var btnDelete = document.createElement('button');
+            btnDelete.type = 'button';
+            btnDelete.className = 'btn btn-danger';
+            btnDelete.innerHTML = '<i class="bi bi-trash"></i>';
+            btnDelete.onclick = function() { div.remove(); };
+
+            // 2. Assembler et ajouter au conteneur
+            div.appendChild(input);
+            div.appendChild(btnDelete);
+            document.getElementById('photos-container').appendChild(div);
+        }
+    </script>
+
+    <button type="submit" class="btn btn-primary btn-lg w-100">Publier l'annonce</button>
+</form>

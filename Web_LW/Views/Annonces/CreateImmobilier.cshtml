@@ -1,0 +1,168 @@
+﻿@{
+    ViewData["Title"] = "Déposer une annonce immobilière";
+}
+
+<div class="container mt-4">
+    <h2><i class="bi bi-house-door"></i> Déposer une annonce immobilière</h2>
+
+    <form asp-action="CreateImmobilier" method="post" enctype="multipart/form-data">
+
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">Informations Générales</div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label>Titre de l'annonce</label>
+                        <input type="text" name="annonce.Titre" class="form-control" required placeholder="Ex: Appartement ensoleillé centre ville..." />
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label>Prix (DH)</label>
+                        <input type="number" name="annonce.Prix" class="form-control" required />
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label>Ville</label>
+                        <input type="text" name="annonce.Ville" class="form-control" required />
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label>Description (Obligatoire)</label>
+                    <textarea name="annonce.Description" class="form-control" rows="4" required placeholder="Détails du bien, quartier, proximité..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header bg-success text-white">Caractéristiques du Bien</div>
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label>Type de Transaction</label>
+                        <select name="immo.TypeTransaction" class="form-select" required>
+                            <option value="Vente">Vente</option>
+                            <option value="Location">Location</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label>Type de Bien</label>
+                        <select name="immo.TypeBien" class="form-select" required>
+                            <option value="Appartement">Appartement</option>
+                            <option value="Maison">Maison</option>
+                            <option value="Villa">Villa</option>
+                            <option value="Terrain">Terrain</option>
+                            <option value="Bureau">Bureau</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label>État du bien</label>
+                        <select name="immo.EtatBien" class="form-select">
+                            <option value="Bon etat">Bon état</option>
+                            <option value="Neuf">Neuf</option>
+                            <option value="A renover">À rénover</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <label>Surface (m²)</label>
+                        <input type="number" name="immo.Surface" class="form-control" required />
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label>Chambres</label>
+                        <input type="number" name="immo.NombreChambres" class="form-control" />
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label>Salles de bain</label>
+                        <input type="number" name="immo.NombreSallesBain" class="form-control" />
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label>Année Construction</label>
+                        <input type="number" name="immo.AnneeConstruction" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label>Étage (si appart)</label>
+                        <input type="number" name="immo.Etage" class="form-control" />
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label>Nombre d'étages (immeuble/villa)</label>
+                        <input type="number" name="immo.NombreEtages" class="form-control" />
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label>Orientation</label>
+                        <select name="immo.Orientation" class="form-select">
+                            <option value="">-- Choisir --</option>
+                            <option value="Sud">Sud (Ensoleillé)</option>
+                            <option value="Nord">Nord</option>
+                            <option value="Est">Est</option>
+                            <option value="Ouest">Ouest</option>
+                        </select>
+                    </div>
+                </div>
+
+                <hr />
+                <div class="row mb-3">
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="immo.Ascenseur" value="true" id="asc">
+                            <label class="form-check-label" for="asc">Ascenseur</label>
+                            <input type="hidden" name="immo.Ascenseur" value="false" />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="immo.Balcon" value="true" id="bal">
+                            <label class="form-check-label" for="bal">Balcon / Terrasse</label>
+                            <input type="hidden" name="immo.Balcon" value="false" />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="immo.Jardin" value="true" id="jar">
+                            <label class="form-check-label" for="jar">Jardin</label>
+                            <input type="hidden" name="immo.Jardin" value="false" />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="immo.Parking" value="true" id="park">
+                            <label class="form-check-label" for="park">Parking / Garage</label>
+                            <input type="hidden" name="immo.Parking" value="false" />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="immo.Meuble" value="true" id="meu">
+                            <label class="form-check-label" for="meu">Meublé</label>
+                            <input type="hidden" name="immo.Meuble" value="false" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row bg-light p-3 rounded">
+                    <div class="col-md-6">
+                        <label>Loyer Mensuel (Si location)</label>
+                        <input type="number" name="immo.LoyerMensuel" class="form-control" />
+                    </div>
+                    <div class="col-md-6">
+                        <label>Caution (Si location)</label>
+                        <input type="number" name="immo.Caution" class="form-control" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <label class="form-label fw-bold">Photos du bien</label>
+                <input type="file" name="photos" multiple class="form-control" />
+                <small class="text-muted">Maintenez CTRL pour sélectionner plusieurs photos.</small>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-success btn-lg w-100">Publier l'annonce</button>
+    </form>
+</div>

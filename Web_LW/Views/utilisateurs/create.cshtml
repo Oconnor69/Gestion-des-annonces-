@@ -1,0 +1,40 @@
+﻿@model Web_LW.Models.Utilisateur
+
+<div class="container mt-5" style="max-width: 600px;">
+    <div class="card shadow-lg p-4">
+        <h2 class="text-center mb-4">Créer un Utilisateur</h2>
+
+        <form method="post" action="/Utilisateurs/Create">
+
+            <div class="mb-3">
+                <label class="form-label">Nom</label>
+                <input type="text" name="Nom" class="form-control" placeholder="Nom complet" required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" name="Email" class="form-control" placeholder="Adresse email" required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Mot de passe</label>
+                <input type="password" name="MotDePasse" class="form-control" placeholder="Mot de passe" required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Téléphone</label>
+                <input type="text" name="Telephone" class="form-control" placeholder="Numéro de téléphone" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Rôle</label>
+                <select name="Role" class="form-select" required>
+                    <option value="User" selected>User</option>
+                    <option value="Admin">Admin</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Créer l'utilisateur</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Web_LW.Models.Categorie>
+
+<h2>Liste des Catégories</h2>
+
+<a href="/Categories/Create" class="btn btn-primary">➕ Ajouter une Catégorie</a>
+
+<table class="table table-bordered mt-3">
+    <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var c in Model)
+    {
+        <tr>
+            <td>@c.Id</td>
+            <td>@c.Nom</td>
+            <td>
+                <a class="btn btn-warning" href="/Categories/Edit/@c.Id">Modifier</a>
+                <a class="btn btn-danger" href="/Categories/Delete/@c.Id">Supprimer</a>
+            </td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,196 @@
+﻿@model Web_LW.Models.Annonce
+
+@{
+    ViewData["Title"] = "Détails Annonce";
+}
+
+<div class="container mt-4">
+    <div class="row">
+
+        <div class="col-md-6 mb-4">
+            @if (Model.Photos != null && Model.Photos.Any())
+            {
+                <div id="carouselPhotos" class="carousel slide shadow rounded overflow-hidden" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        @for (int i = 0; i < Model.Photos.Count; i++)
+                        {
+                            var photo = Model.Photos.ElementAt(i);
+                            <div class="carousel-item @(i == 0 ? "active" : "")">
+                                <img src="@photo.Url" class="d-block w-100" alt="Photo @i" style="height: 400px; object-fit: cover;">
+                            </div>
+                        }
+                    </div>
+                    @if (Model.Photos.Count > 1)
+                    {
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselPhotos" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselPhotos" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        </button>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-secondary text-center py-5 rounded shadow-sm">
+                    <i class="bi bi-camera-video-off fs-1"></i><br>
+                    Pas de photo disponible
+                </div>
+            }
+        </div>
+
+        <div class="col-md-6">
+            <h1 class="display-5 fw-bold">@Model.Titre</h1>
+            <h2 class="text-primary mb-3">@Model.Prix.ToString("N0") DH</h2>
+
+            <p class="text-muted">
+                <i class="bi bi-geo-alt-fill text-danger"></i> @Model.Ville
+                <span class="mx-2">|</span>
+                <i class="bi bi-calendar-event"></i> Publié le : @Model.DatePublication.ToShortDateString()
+            </p>
+
+            <hr />
+
+            <h5>Description</h5>
+            <p class="mb-4 text-justify">@Model.Description</p>
+
+            @if (Model.Voiture != null)
+            {
+                <div class="card bg-light mb-3 border-0 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary"><i class="bi bi-car-front-fill"></i> Caractéristiques Véhicule</h5>
+                        <ul class="list-group list-group-flush bg-transparent">
+                            <li class="list-group-item bg-transparent d-flex justify-content-between"><strong>Marque :</strong> <span>@Model.Voiture.Marque</span></li>
+                            <li class="list-group-item bg-transparent d-flex justify-content-between"><strong>Modèle :</strong> <span>@Model.Voiture.Modele</span></li>
+                            <li class="list-group-item bg-transparent d-flex justify-content-between"><strong>Année :</strong> <span>@Model.Voiture.Annee</span></li>
+                            <li class="list-group-item bg-transparent d-flex justify-content-between"><strong>Carburant :</strong> <span>@Model.Voiture.Carburant</span></li>
+                            <li class="list-group-item bg-transparent d-flex justify-content-between"><strong>Boîte :</strong> <span>@Model.Voiture.BoiteVitesse</span></li>
+                            <li class="list-group-item bg-transparent d-flex justify-content-between"><strong>Kilométrage :</strong> <span>@Model.Voiture.Kilometrage km</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    @if (Model.Voiture.Climatisation)
+                    {
+                        <span class="badge bg-success me-1"><i class="bi bi-check-lg"></i> Clim</span>
+                    }
+                    @if (Model.Voiture.GPS)
+                    {
+                        <span class="badge bg-success me-1"><i class="bi bi-check-lg"></i> GPS</span>
+                    }
+                    @if (Model.Voiture.Bluetooth)
+                    {
+                        <span class="badge bg-success me-1"><i class="bi bi-check-lg"></i> Bluetooth</span>
+                    }
+                    @if (Model.Voiture.CameraRecul)
+                    {
+                        <span class="badge bg-success me-1"><i class="bi bi-check-lg"></i> Caméra Recul</span>
+                    }
+                </div>
+            }
+
+            @if (Model.Immobilier != null)
+            {
+                <div class="card mb-3 border-success shadow-sm" style="background-color: #f0fff4;">
+                    <div class="card-body">
+                        <h5 class="card-title text-success mb-3"><i class="bi bi-house-door-fill"></i> Détails Immobilier</h5>
+
+                        <div class="row mb-2">
+                            <div class="col-6 mb-2">
+                                <small class="text-muted d-block">Type de bien</small>
+                                <strong>@Model.Immobilier.TypeBien</strong>
+                            </div>
+                            <div class="col-6 mb-2">
+                                <small class="text-muted d-block">Transaction</small>
+                                <strong>@Model.Immobilier.TypeTransaction</strong>
+                            </div>
+                            <div class="col-6 mb-2">
+                                <small class="text-muted d-block">Surface</small>
+                                <strong>@Model.Immobilier.Surface m²</strong>
+                            </div>
+                            <div class="col-6 mb-2">
+                                <small class="text-muted d-block">État</small>
+                                <strong>@(string.IsNullOrEmpty(Model.Immobilier.EtatBien) ? "-" : Model.Immobilier.EtatBien)</strong>
+                            </div>
+                        </div>
+
+                        <hr class="text-success my-2" />
+
+                        <div class="row mb-2">
+                            <div class="col-6 mb-2">
+                                <span class="d-block"><i class="bi bi-door-open"></i> @Model.Immobilier.NombreChambres Chambres</span>
+                            </div>
+                            <div class="col-6 mb-2">
+                                <span class="d-block"><i class="bi bi-droplet"></i> @Model.Immobilier.NombreSallesBain Salles de bain</span>
+                            </div>
+                            <div class="col-6 mb-2">
+                                <span class="d-block"><i class="bi bi-layers"></i> Étage : @Model.Immobilier.Etage / @Model.Immobilier.NombreEtages</span>
+                            </div>
+                            <div class="col-6 mb-2">
+                                <span class="d-block"><i class="bi bi-compass"></i> Orientation : @(string.IsNullOrEmpty(Model.Immobilier.Orientation) ? "-" : Model.Immobilier.Orientation)</span>
+                            </div>
+                            <div class="col-6 mb-2">
+                                <span class="d-block"><i class="bi bi-bricks"></i> Année : @(Model.Immobilier.AnneeConstruction > 0 ? Model.Immobilier.AnneeConstruction.ToString() : "-")</span>
+                            </div>
+                        </div>
+
+                        @if (Model.Immobilier.TypeTransaction == "Location")
+                        {
+                            <div class="alert alert-warning mt-3 mb-0">
+                                <div class="d-flex justify-content-between">
+                                    <span><strong>Loyer mensuel :</strong></span>
+                                    <span>@Model.Immobilier.LoyerMensuel DH</span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span><strong>Caution :</strong></span>
+                                    <span>@Model.Immobilier.Caution DH</span>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <h6 class="fw-bold">Équipements :</h6>
+                    @if (Model.Immobilier.Ascenseur)
+                    {
+                        <span class="badge bg-secondary me-1"><i class="bi bi-arrow-up-circle"></i> Ascenseur</span>
+                    }
+                    @if (Model.Immobilier.Parking)
+                    {
+                        <span class="badge bg-secondary me-1"><i class="bi bi-p-square"></i> Parking</span>
+                    }
+                    @if (Model.Immobilier.Jardin)
+                    {
+                        <span class="badge bg-secondary me-1"><i class="bi bi-flower1"></i> Jardin</span>
+                    }
+                    @if (Model.Immobilier.Balcon)
+                    {
+                        <span class="badge bg-secondary me-1"><i class="bi bi-grid-1x2"></i> Balcon</span>
+                    }
+                    @if (Model.Immobilier.Meuble)
+                    {
+                        <span class="badge bg-info text-dark me-1"><i class="bi bi-lamp"></i> Meublé</span>
+                    }
+
+                    @if (!Model.Immobilier.Ascenseur && !Model.Immobilier.Parking && !Model.Immobilier.Jardin && !Model.Immobilier.Balcon && !Model.Immobilier.Meuble)
+                    {
+                        <span class="text-muted small">Aucun équipement spécifique renseigné.</span>
+                    }
+                </div>
+            }
+
+            <div class="d-flex gap-2 mt-4">
+                <a asp-action="MesAnnonces" class="btn btn-outline-secondary btn-lg">
+                    <i class="bi bi-arrow-left"></i> Retour
+                </a>
+
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning btn-lg px-4">
+                    <i class="bi bi-pencil-square"></i> Modifier
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

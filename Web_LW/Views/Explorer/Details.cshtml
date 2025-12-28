@@ -1,0 +1,271 @@
+@model Web_LW.Models.Annonce
+@{
+    ViewData["Title"] = "Details annonce";
+}
+
+<div class="container py-5">
+    <a asp-action="Index" class="btn btn-outline-secondary mb-4">
+        <span>←</span> Retour aux annonces
+    </a>
+
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="card mb-4" style="overflow: hidden;">
+                <div class="position-relative" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 2rem;">
+                    <h1 class="text-white mb-2 fw-bold">@Model.Titre</h1>
+                    <div class="d-flex align-items-center gap-3 text-white-50">
+                        <span><span class="me-1">📅</span> @Model.DatePublication.ToString("dd MMMM yyyy")</span>
+                        <span><span class="me-1">📍</span> @Model.Ville</span>
+                    </div>
+                    <div class="position-absolute top-0 end-0 m-3">
+                        @if (!string.Equals(Model.Statut, "Vendue", StringComparison.OrdinalIgnoreCase) && !string.Equals(Model.Statut, "Louee", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <span class="badge bg-success px-3 py-2" style="font-size: 0.9rem;">@Model.Statut</span>
+                        }
+                    </div>
+                </div>
+                <div class="card-body p-4">
+                    <h5 class="fw-bold mb-3"><span class="me-2">📝</span>Description</h5>
+                    <p class="text-muted" style="line-height: 1.8;">@Model.Description</p>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-body p-4">
+                    <h5 class="fw-bold mb-4"><span class="me-2">📸</span>Galerie photos</h5>
+                    @if (Model.Photos != null && Model.Photos.Any())
+                    {
+                        <div class="row g-3">
+                            @foreach (var photo in Model.Photos)
+                            {
+                                <div class="col-md-4 col-6">
+                                    <div style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                                        <img src="@photo.Url" alt="Photo annonce" class="img-fluid w-100" style="height: 180px; object-fit: cover; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" />
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center py-4 text-muted">
+                            <span style="font-size: 3rem;">📷</span>
+                            <p class="mt-2">Aucune photo disponible</p>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            @if (Model.Voiture != null)
+            {
+                <div class="card mb-4" style="border-left: 4px solid #667eea;">
+                    <div class="card-body p-4">
+                        <h5 class="fw-bold mb-4"><span class="me-2">🚗</span>Caracteristiques du vehicule</h5>
+                        <div class="row g-3">
+                            <div class="col-md-4 col-6">
+                                <div class="p-3 rounded" style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);">
+                                    <div class="text-muted small">Marque</div>
+                                    <div class="fw-bold">@Model.Voiture.Marque</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-6">
+                                <div class="p-3 rounded" style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);">
+                                    <div class="text-muted small">Modele</div>
+                                    <div class="fw-bold">@Model.Voiture.Modele</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-6">
+                                <div class="p-3 rounded" style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);">
+                                    <div class="text-muted small">Annee</div>
+                                    <div class="fw-bold">@Model.Voiture.Annee</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-6">
+                                <div class="p-3 rounded" style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);">
+                                    <div class="text-muted small">Kilometrage</div>
+                                    <div class="fw-bold">@Model.Voiture.Kilometrage km</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-6">
+                                <div class="p-3 rounded" style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);">
+                                    <div class="text-muted small">Carburant</div>
+                                    <div class="fw-bold">@Model.Voiture.Carburant</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-6">
+                                <div class="p-3 rounded" style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);">
+                                    <div class="text-muted small">Boite</div>
+                                    <div class="fw-bold">@Model.Voiture.BoiteVitesse</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (Model.Immobilier != null)
+            {
+                <div class="card mb-4" style="border-left: 4px solid #11998e;">
+                    <div class="card-body p-4">
+                        <h5 class="fw-bold mb-4"><span class="me-2">🏠</span>Caracteristiques immobilier</h5>
+                        <div class="row g-3">
+                            <div class="col-md-4 col-6">
+                                <div class="p-3 rounded" style="background: linear-gradient(135deg, rgba(17, 153, 142, 0.1) 0%, rgba(56, 239, 125, 0.1) 100%);">
+                                    <div class="text-muted small">Type de bien</div>
+                                    <div class="fw-bold">@Model.Immobilier.TypeBien</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-6">
+                                <div class="p-3 rounded" style="background: linear-gradient(135deg, rgba(17, 153, 142, 0.1) 0%, rgba(56, 239, 125, 0.1) 100%);">
+                                    <div class="text-muted small">Transaction</div>
+                                    <div class="fw-bold">@Model.Immobilier.TypeTransaction</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-6">
+                                <div class="p-3 rounded" style="background: linear-gradient(135deg, rgba(17, 153, 142, 0.1) 0%, rgba(56, 239, 125, 0.1) 100%);">
+                                    <div class="text-muted small">Surface</div>
+                                    <div class="fw-bold">@Model.Immobilier.Surface m2</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-6">
+                                <div class="p-3 rounded" style="background: linear-gradient(135deg, rgba(17, 153, 142, 0.1) 0%, rgba(56, 239, 125, 0.1) 100%);">
+                                    <div class="text-muted small">Chambres</div>
+                                    <div class="fw-bold">@Model.Immobilier.NombreChambres</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-6">
+                                <div class="p-3 rounded" style="background: linear-gradient(135deg, rgba(17, 153, 142, 0.1) 0%, rgba(56, 239, 125, 0.1) 100%);">
+                                    <div class="text-muted small">Salles de bain</div>
+                                    <div class="fw-bold">@Model.Immobilier.NombreSallesBain</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-6">
+                                <div class="p-3 rounded" style="background: linear-gradient(135deg, rgba(17, 153, 142, 0.1) 0%, rgba(56, 239, 125, 0.1) 100%);">
+                                    <div class="text-muted small">Etage</div>
+                                    <div class="fw-bold">@Model.Immobilier.Etage</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card mb-4" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                <div class="card-body p-4 text-center">
+                    <div class="display-4 fw-bold mb-2">@Model.Prix.ToString("N0")</div>
+                    <div class="opacity-75 mb-3">Dirhams</div>
+                    <div class="d-flex justify-content-center gap-2">
+                        <span class="badge bg-white text-dark px-3 py-2">@Model.Categorie?.Nom</span>
+                        <span class="badge bg-white text-dark px-3 py-2">Ref: #@Model.Id</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-body p-4">
+                    <h5 class="fw-bold mb-4"><span class="me-2">👤</span>Vendeur</h5>
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 60px; height: 60px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; font-size: 1.5rem; font-weight: bold;">
+                            @(Model.Utilisateur?.Nom?.Substring(0, 1).ToUpper() ?? "?")
+                        </div>
+                        <div>
+                            <div class="fw-bold fs-5">@Model.Utilisateur?.Nom</div>
+                            <div class="text-muted small">@Model.Utilisateur?.Email</div>
+                        </div>
+                    </div>
+                    <div class="p-3 rounded" style="background: rgba(102, 126, 234, 0.1);">
+                        <div class="d-flex align-items-center">
+                            <span class="me-2" style="font-size: 1.25rem;">📞</span>
+                            <div>
+                                <div class="text-muted small">Telephone</div>
+                                <div class="fw-bold">@(string.IsNullOrWhiteSpace(Model.Utilisateur?.Telephone) ? "Non renseigne" : Model.Utilisateur.Telephone)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body p-4">
+                    <h5 class="fw-bold mb-4"><span class="me-2">💬</span>Commentaires</h5>
+
+                    @if (TempData["CommentError"] != null)
+                    {
+                        <div class="alert alert-warning">@TempData["CommentError"]</div>
+                    }
+
+                    @if (ViewBag.CurrentUserId != null)
+                    {
+                        <form asp-action="AddComment" method="post" class="mb-4">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="annonceId" value="@Model.Id" />
+                            <textarea name="contenu" class="form-control mb-2" rows="3" placeholder="Ecrivez votre commentaire..." style="resize: none;"></textarea>
+                            <button type="submit" class="btn btn-primary w-100">
+                                <span>✉️</span> Publier
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <div class="text-center p-4 rounded mb-4" style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);">
+                            <span style="font-size: 2rem;">🔒</span>
+                            <p class="mb-2 mt-2">Connectez-vous pour commenter</p>
+                            <a asp-controller="Auth" asp-action="Login" class="btn btn-primary btn-sm">Se connecter</a>
+                        </div>
+                    }
+
+                    @if (Model.Commentaires != null && Model.Commentaires.Any())
+                    {
+                        var currentUserId = ViewBag.CurrentUserId as int?;
+                        foreach (var c in Model.Commentaires.OrderByDescending(x => x.DateCommentaire))
+                        {
+                            <div class="comment-item">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <div class="d-flex align-items-center">
+                                        <div class="rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 32px; height: 32px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; font-size: 0.75rem; font-weight: bold;">
+                                            @(c.Utilisateur?.Nom?.Substring(0, 1).ToUpper() ?? "?")
+                                        </div>
+                                        <div>
+                                            <div class="fw-semibold small">@(c.Utilisateur?.Nom ?? "Utilisateur")</div>
+                                            <div class="text-muted" style="font-size: 0.7rem;">@c.DateCommentaire.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</div>
+                                        </div>
+                                    </div>
+                                    @if (currentUserId != null && currentUserId.Value == c.UtilisateurId)
+                                    {
+                                        <form asp-action="DeleteComment" method="post">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="id" value="@c.Id" />
+                                            <button type="submit" class="btn btn-link text-danger p-0" style="font-size: 0.8rem;">🗑️</button>
+                                        </form>
+                                    }
+                                </div>
+                                <p class="mb-0 small">@c.Contenu</p>
+                                @if (currentUserId != null && currentUserId.Value == c.UtilisateurId)
+                                {
+                                    <details class="mt-2">
+                                        <summary class="text-primary small" style="cursor: pointer;">Modifier</summary>
+                                        <form asp-action="EditComment" method="post" class="mt-2">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="id" value="@c.Id" />
+                                            <textarea name="contenu" class="form-control form-control-sm" rows="2">@c.Contenu</textarea>
+                                            <button type="submit" class="btn btn-primary btn-sm mt-2">Enregistrer</button>
+                                        </form>
+                                    </details>
+                                }
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="text-center text-muted py-3">
+                            <span style="font-size: 2rem;">💭</span>
+                            <p class="mt-2 mb-0">Soyez le premier a commenter</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

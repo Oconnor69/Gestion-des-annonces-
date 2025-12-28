@@ -1,0 +1,198 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<style>
+    .admin-layout { display: grid; grid-template-columns: 280px 1fr; min-height: calc(100vh - 140px); gap: 2rem; }
+    .admin-sidebar { 
+        background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); 
+        color: #fff; 
+        border-radius: 20px; 
+        padding: 2rem 1.5rem; 
+        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .admin-sidebar .brand { 
+        font-size: 1.5rem; 
+        font-weight: 800; 
+        margin-bottom: 2rem; 
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .admin-menu { list-style: none; padding: 0; margin: 0; }
+    .admin-menu li { margin-bottom: 0.5rem; }
+    .admin-menu a { 
+        display: flex; 
+        align-items: center; 
+        gap: 1rem; 
+        padding: 1rem 1.25rem; 
+        border-radius: 12px; 
+        color: rgba(255,255,255,0.7); 
+        text-decoration: none; 
+        transition: all 0.3s ease;
+        font-weight: 500;
+    }
+    .admin-menu a:hover, .admin-menu a.active { 
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%);
+        color: #fff;
+        transform: translateX(5px);
+    }
+    .admin-menu .icon { 
+        width: 40px; 
+        height: 40px; 
+        border-radius: 10px; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center;
+        background: rgba(255,255,255,0.1);
+        font-size: 1.1rem;
+    }
+    .admin-content { 
+        background: rgba(255,255,255,0.95); 
+        border-radius: 20px; 
+        padding: 2rem; 
+        box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    }
+    .welcome-card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 16px;
+        padding: 2rem;
+        color: white;
+        margin-bottom: 2rem;
+    }
+    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
+    .stat-box { 
+        background: white; 
+        border-radius: 16px; 
+        padding: 1.5rem; 
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        transition: all 0.3s ease;
+    }
+    .stat-box:hover { transform: translateY(-5px); box-shadow: 0 10px 40px rgba(0,0,0,0.15); }
+    .stat-box .stat-icon { 
+        width: 56px; 
+        height: 56px; 
+        border-radius: 14px; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    .stat-box.users .stat-icon { background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%); }
+    .stat-box.categories .stat-icon { background: linear-gradient(135deg, rgba(17, 153, 142, 0.2) 0%, rgba(56, 239, 125, 0.2) 100%); }
+    .stat-box.annonces .stat-icon { background: linear-gradient(135deg, rgba(240, 147, 251, 0.2) 0%, rgba(245, 87, 108, 0.2) 100%); }
+    .quick-actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+    .action-btn {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.25rem;
+        border-radius: 12px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+    }
+    .action-btn:hover { transform: translateY(-3px); }
+    .action-btn.primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+    .action-btn.secondary { background: white; border-color: #667eea; color: #667eea; }
+    .action-btn.tertiary { background: white; border-color: #11998e; color: #11998e; }
+    @@media (max-width: 992px) {
+        .admin-layout { grid-template-columns: 1fr; }
+        .admin-sidebar { border-radius: 16px; }
+        .stats-grid { grid-template-columns: 1fr; }
+    }
+</style>
+
+<div class="container-fluid py-4">
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <div class="brand">🛡️ Admin Panel</div>
+            <ul class="admin-menu">
+                <li>
+                    <a href="#" class="active">
+                        <span class="icon">🏠</span>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a asp-controller="Utilisateurs" asp-action="Index">
+                        <span class="icon">👥</span>
+                        <span>Utilisateurs</span>
+                    </a>
+                </li>
+                <li>
+                    <a asp-controller="Categories" asp-action="Index">
+                        <span class="icon">🏷️</span>
+                        <span>Categories</span>
+                    </a>
+                </li>
+                <li>
+                    <a asp-controller="Annonces" asp-action="MesAnnonces">
+                        <span class="icon">📢</span>
+                        <span>Annonces</span>
+                    </a>
+                </li>
+                <li>
+                    <a asp-controller="Explorer" asp-action="Index">
+                        <span class="icon">🧭</span>
+                        <span>Explorer</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="mt-auto pt-4" style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 2rem;">
+                <a asp-controller="Auth" asp-action="Logout" class="btn btn-outline-light w-100">
+                    <span class="me-2">🚪</span> Deconnexion
+                </a>
+            </div>
+        </aside>
+
+        <section class="admin-content">
+            <div class="welcome-card">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1 class="fw-bold mb-2">Bienvenue Admin 👋</h1>
+                        <p class="opacity-75 mb-0">Gerez votre plateforme d'annonces depuis ce tableau de bord</p>
+                    </div>
+                    <div style="font-size: 4rem; opacity: 0.3;">📊</div>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-box users">
+                    <div class="stat-icon">👥</div>
+                    <div class="text-muted small mb-1">Utilisateurs</div>
+                    <div class="fs-3 fw-bold">—</div>
+                </div>
+                <div class="stat-box categories">
+                    <div class="stat-icon">🏷️</div>
+                    <div class="text-muted small mb-1">Categories</div>
+                    <div class="fs-3 fw-bold">—</div>
+                </div>
+                <div class="stat-box annonces">
+                    <div class="stat-icon">📢</div>
+                    <div class="text-muted small mb-1">Annonces</div>
+                    <div class="fs-3 fw-bold">—</div>
+                </div>
+            </div>
+
+            <h5 class="fw-bold mb-3"><span class="me-2">⚡</span>Actions rapides</h5>
+            <div class="quick-actions">
+                <a asp-controller="Utilisateurs" asp-action="Index" class="action-btn primary">
+                    <span style="font-size: 1.5rem;">👥</span>
+                    <span>Gerer les utilisateurs</span>
+                </a>
+                <a asp-controller="Categories" asp-action="Index" class="action-btn secondary">
+                    <span style="font-size: 1.5rem;">🏷️</span>
+                    <span>Gerer les categories</span>
+                </a>
+                <a asp-controller="Annonces" asp-action="MesAnnonces" class="action-btn tertiary">
+                    <span style="font-size: 1.5rem;">📢</span>
+                    <span>Voir les annonces</span>
+                </a>
+            </div>
+        </section>
+    </div>
+</div>

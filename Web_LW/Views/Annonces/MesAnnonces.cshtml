@@ -1,0 +1,92 @@
+﻿@model List<Web_LW.Models.Annonce>
+
+@{
+    ViewData["Title"] = "Mes Annonces";
+}
+
+<div class="container py-5">
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-5 gap-3">
+        <div>
+            <h1 class="display-6 fw-bold mb-2" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                <span class="me-2">📋</span>Mes Annonces
+            </h1>
+            <p class="text-muted mb-0">Gerez vos annonces publiees</p>
+        </div>
+        <a asp-action="ChoisirCategorie" class="btn btn-success btn-lg px-4">
+            <span class="me-2">➕</span> Nouvelle Annonce
+        </a>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="card" style="background: rgba(255,255,255,0.9);">
+            <div class="card-body text-center py-5">
+                <div style="font-size: 5rem; margin-bottom: 1.5rem;">📭</div>
+                <h3 class="mb-3">Aucune annonce pour le moment</h3>
+                <p class="text-muted mb-4">Commencez par creer votre premiere annonce</p>
+                <a asp-action="ChoisirCategorie" class="btn btn-primary btn-lg px-5">
+                    <span class="me-2">🚀</span> Creer ma premiere annonce
+                </a>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row g-4">
+            @{ var delay = 0; }
+            @foreach (var item in Model)
+            {
+                <div class="col-xl-4 col-lg-4 col-md-6 animate-fade-in" style="animation-delay: @(delay)ms">
+                    <div class="card h-100 annonce-card">
+                        <div class="card-img-wrapper position-relative" style="height: 220px; overflow: hidden; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);">
+                            @if (item.Photos != null && item.Photos.Any())
+                            {
+                                <img src="@item.Photos.First().Url" class="w-100 h-100" style="object-fit: cover;" alt="@item.Titre">
+                            }
+                            else
+                            {
+                                <div class="d-flex flex-column align-items-center justify-content-center h-100 text-muted">
+                                    <span style="font-size: 3rem;">📷</span>
+                                    <span class="mt-2">Pas de photo</span>
+                                </div>
+                            }
+                            <div class="position-absolute top-0 end-0 m-2">
+                                <span class="badge @(item.Statut == "Active" ? "bg-success" : item.Statut == "Vendue" ? "bg-danger" : "bg-warning") px-3 py-2">
+                                    @item.Statut
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="card-body p-4">
+                            <h5 class="card-title text-truncate mb-2" title="@item.Titre">@item.Titre</h5>
+                            <div class="price-tag mb-3">@item.Prix.ToString("N0") DH</div>
+                            <div class="d-flex align-items-center text-muted mb-1">
+                                <span class="me-2">📍</span> @item.Ville
+                            </div>
+                            <div class="d-flex align-items-center text-muted">
+                                <span class="me-2">📅</span> @item.DatePublication.ToString("dd/MM/yyyy")
+                            </div>
+                        </div>
+
+                        <div class="card-footer bg-transparent p-3">
+                            <div class="d-flex gap-2">
+                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary flex-grow-1">
+                                    <span>👁️</span> Voir
+                                </a>
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-warning">
+                                    <span>✏️</span>
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@item.Id"
+                                   class="btn btn-outline-danger"
+                                   onclick="return confirm('Etes-vous sur de vouloir supprimer cette annonce ?');">
+                                    <span>🗑️</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                delay += 100;
+            }
+        </div>
+    }
+</div>
