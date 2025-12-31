@@ -1,54 +1,14 @@
-﻿@{
+﻿@model Web_LW.Models.UserDashboardViewModel
+@using System.Text.Json
+@{
     ViewData["Title"] = "Mon Dashboard";
+    var monthLabels = JsonSerializer.Serialize(Model.MonthLabels);
+    var monthCounts = JsonSerializer.Serialize(Model.MonthCounts);
+    var categoryLabels = JsonSerializer.Serialize(Model.CategoryLabels);
+    var categoryCounts = JsonSerializer.Serialize(Model.CategoryCounts);
 }
 
 <style>
-    .user-layout { display: grid; grid-template-columns: 260px 1fr; min-height: calc(100vh - 140px); gap: 2rem; }
-    .user-sidebar { 
-        background: linear-gradient(180deg, #0f0c29 0%, #302b63 50%, #24243e 100%); 
-        color: #fff; 
-        border-radius: 20px; 
-        padding: 2rem 1.5rem; 
-        box-shadow: 0 20px 60px rgba(0,0,0,0.25);
-    }
-    .user-sidebar .brand { 
-        font-size: 1.4rem; 
-        font-weight: 800; 
-        margin-bottom: 2rem; 
-        padding-bottom: 1.5rem;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-        background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-    .user-menu { list-style: none; padding: 0; margin: 0; }
-    .user-menu li { margin-bottom: 0.5rem; }
-    .user-menu a { 
-        display: flex; 
-        align-items: center; 
-        gap: 1rem; 
-        padding: 1rem 1.25rem; 
-        border-radius: 12px; 
-        color: rgba(255,255,255,0.7); 
-        text-decoration: none; 
-        transition: all 0.3s ease;
-        font-weight: 500;
-    }
-    .user-menu a:hover, .user-menu a.active { 
-        background: linear-gradient(135deg, rgba(17, 153, 142, 0.3) 0%, rgba(56, 239, 125, 0.3) 100%);
-        color: #fff;
-        transform: translateX(5px);
-    }
-    .user-menu .icon { 
-        width: 40px; 
-        height: 40px; 
-        border-radius: 10px; 
-        display: flex; 
-        align-items: center; 
-        justify-content: center;
-        background: rgba(255,255,255,0.1);
-        font-size: 1.1rem;
-    }
     .user-content { 
         background: rgba(255,255,255,0.95); 
         border-radius: 20px; 
@@ -109,54 +69,50 @@
     .tile.view:hover { border-color: #667eea; }
     .tile.explore .tile-icon { background: linear-gradient(135deg, rgba(240, 147, 251, 0.2) 0%, rgba(245, 87, 108, 0.2) 100%); }
     .tile.explore:hover { border-color: #f5576c; }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+    .stat-box { background: white; border-radius: 14px; padding: 1.25rem; box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+    .stat-label { color: #6c757d; font-size: 0.9rem; margin-bottom: 0.4rem; }
+    .chart-card { background: white; border-radius: 16px; padding: 1.5rem; box-shadow: 0 4px 16px rgba(0,0,0,0.06); height: 100%; }
     @@media (max-width: 992px) {
-        .user-layout { grid-template-columns: 1fr; }
-        .user-sidebar { border-radius: 16px; }
     }
 </style>
 
 <div class="container-fluid py-4">
-    <div class="user-layout">
-        <aside class="user-sidebar">
-            <div class="brand">🏠 Mon Espace</div>
-            <ul class="user-menu">
-                <li>
-                    <a href="#" class="active">
-                        <span class="icon">📊</span>
-                        <span>Dashboard</span>
-                    </a>
-                </li>
-                <li>
-                    <a asp-controller="Annonces" asp-action="MesAnnonces">
-                        <span class="icon">📢</span>
-                        <span>Mes annonces</span>
-                    </a>
-                </li>
-                <li>
-                    <a asp-controller="Annonces" asp-action="ChoisirCategorie">
-                        <span class="icon">➕</span>
-                        <span>Creer annonce</span>
-                    </a>
-                </li>
-                <li>
-                    <a asp-controller="Explorer" asp-action="Index">
-                        <span class="icon">🧭</span>
-                        <span>Explorer</span>
-                    </a>
-                </li>
-            </ul>
-            <div class="mt-auto pt-4" style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 2rem;">
-                <a asp-controller="Auth" asp-action="Logout" class="btn btn-outline-light w-100">
-                    <span class="me-2">🚪</span> Deconnexion
-                </a>
-            </div>
-        </aside>
-
         <section class="user-content">
             <div class="welcome-banner">
                 <div class="position-relative" style="z-index: 1;">
-                    <h1 class="fw-bold mb-2">Bienvenue sur votre espace 👋</h1>
+                    <h1 class="fw-bold mb-2">Bienvenue @Model.UserName 👋</h1>
                     <p class="opacity-90 mb-0">Gerez vos annonces et decouvrez de nouvelles opportunites</p>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-label">Total annonces</div>
+                    <div class="fs-3 fw-bold">@Model.TotalAnnonces</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Actives</div>
+                    <div class="fs-3 fw-bold text-success">@Model.ActiveAnnonces</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Archivees ou cloturees</div>
+                    <div class="fs-3 fw-bold text-muted">@Model.InactiveAnnonces</div>
+                </div>
+            </div>
+
+            <div class="row g-3 mb-4">
+                <div class="col-lg-7">
+                    <div class="chart-card">
+                        <h6 class="fw-bold mb-2">Mes publications (6 derniers mois)</h6>
+                        <canvas id="userMonthlyChart" height="160"></canvas>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="chart-card">
+                        <h6 class="fw-bold mb-2">Par categorie</h6>
+                        <canvas id="userCategoryChart" height="220"></canvas>
+                    </div>
                 </div>
             </div>
 
@@ -179,5 +135,50 @@
                 </a>
             </div>
         </section>
-    </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const monthLabels = @Html.Raw(monthLabels);
+    const monthCounts = @Html.Raw(monthCounts);
+    const categoryLabels = @Html.Raw(categoryLabels);
+    const categoryCounts = @Html.Raw(categoryCounts);
+    const palette = ['#11998e', '#38ef7d', '#667eea', '#f5576c', '#f6d365', '#f093fb'];
+
+    new Chart(document.getElementById('userMonthlyChart'), {
+        type: 'line',
+        data: {
+            labels: monthLabels,
+            datasets: [{
+                label: 'Annonces creees',
+                data: monthCounts,
+                borderColor: '#11998e',
+                backgroundColor: 'rgba(17, 153, 142, 0.18)',
+                fill: true,
+                tension: 0.35,
+                pointRadius: 4,
+                borderWidth: 3
+            }]
+        },
+        options: {
+            plugins: { legend: { display: false } },
+            scales: {
+                y: { beginAtZero: true, ticks: { precision: 0 } },
+                x: { grid: { display: false } }
+            }
+        }
+    });
+
+    new Chart(document.getElementById('userCategoryChart'), {
+        type: 'doughnut',
+        data: {
+            labels: categoryLabels,
+            datasets: [{
+                data: categoryCounts,
+                backgroundColor: palette,
+                borderWidth: 1,
+            }]
+        },
+        options: { plugins: { legend: { position: 'bottom' } } }
+    });
+</script>

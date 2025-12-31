@@ -1,25 +1,71 @@
 ﻿@model IEnumerable<Web_LW.Models.Categorie>
 
-<h2>Liste des Catégories</h2>
+<link rel="stylesheet" href="~/css/admin.css" />
 
-<a href="/Categories/Create" class="btn btn-primary">➕ Ajouter une Catégorie</a>
+<div class="admin-container">
+    <!-- Header -->
+    <div class="admin-header">
+        <div class="admin-header-icon">🏷️</div>
+        <h1>Gestion des catégories</h1>
+        <p>Organisez et gérez les catégories d'annonces de votre plateforme</p>
+    </div>
 
-<table class="table table-bordered mt-3">
-    <tr>
-        <th>ID</th>
-        <th>Nom</th>
-        <th>Actions</th>
-    </tr>
+    <!-- Action button -->
+    <div class="mb-4">
+        <a href="/Categories/Create" class="btn-modern btn-modern-primary">
+            ➕ Ajouter une catégorie
+        </a>
+    </div>
 
-    @foreach (var c in Model)
-    {
-        <tr>
-            <td>@c.Id</td>
-            <td>@c.Nom</td>
-            <td>
-                <a class="btn btn-warning" href="/Categories/Edit/@c.Id">Modifier</a>
-                <a class="btn btn-danger" href="/Categories/Delete/@c.Id">Supprimer</a>
-            </td>
-        </tr>
-    }
-</table>
+    <!-- Table -->
+    <div class="table-section">
+        <div class="table-section-header">
+            <div>
+                <h2 class="table-section-title">Liste des catégories</h2>
+                <p class="table-section-subtitle">@Model.Count() catégorie(s) au total</p>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="modern-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom de la catégorie</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @if (Model.Any())
+                {
+                    foreach (var c in Model)
+                    {
+                        <tr>
+                            <td><strong>@c.Id</strong></td>
+                            <td><strong>@c.Nom</strong></td>
+                            <td class="text-end">
+                                <a class="btn-modern btn-modern-secondary btn-modern-sm me-1" href="/Categories/Edit/@c.Id">
+                                    ✏️ Modifier
+                                </a>
+                                <a class="btn-modern btn-modern-danger btn-modern-sm" href="/Categories/Delete/@c.Id">
+                                    🗑️ Supprimer
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="3">
+                            <div class="empty-state">
+                                <div class="empty-state-icon">🏷️</div>
+                                <p class="empty-state-text">Aucune catégorie créée</p>
+                            </div>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

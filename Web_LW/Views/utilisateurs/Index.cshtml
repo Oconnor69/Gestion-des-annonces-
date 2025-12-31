@@ -1,34 +1,98 @@
 ﻿@model IEnumerable<Web_LW.Models.Utilisateur>
 
-<h2>Liste des utilisateurs</h2>
+<link rel="stylesheet" href="~/css/admin.css" />
 
-<p>
-    <a class="btn btn-primary" href="/Utilisateurs/Create">Ajouter</a>
-</p>
+<div class="admin-container">
+    <!-- Header -->
+    <div class="admin-header">
+        <div class="admin-header-icon">👥</div>
+        <h1>Gestion des utilisateurs</h1>
+        <p>Administrez les comptes utilisateurs et leurs permissions sur la plateforme</p>
+    </div>
 
-<table class="table table-bordered">
-    <tr>
-        <th>Nom</th>
-        <th>Email</th>
-        <th>Téléphone</th>
-        <th>Active</th>
-        <th>Rôle</th>
-        <th>Actions</th>
-    </tr>
+    <!-- Action button -->
+    <div class="mb-4">
+        <a class="btn-modern btn-modern-primary" href="/Utilisateurs/Create">
+            ➕ Ajouter un utilisateur
+        </a>
+    </div>
 
-    @foreach (var u in Model)
-    {
-        <tr>
-            <td>@u.Nom</td>
-            <td>@u.Email</td>
-            <td>@u.Telephone</td>
-            <td>@u.IsActive</td>
-            <td>@u.Role</td>
-            <td>
-                <a href="/Utilisateurs/Details/@u.Id">Details</a> |
-                <a href="/Utilisateurs/Edit/@u.Id">Modifier</a> |
-                <a href="/Utilisateurs/Delete/@u.Id">Supprimer</a>
-            </td>
-        </tr>
-    }
-</table>
+    <!-- Table -->
+    <div class="table-section">
+        <div class="table-section-header">
+            <div>
+                <h2 class="table-section-title">Liste des utilisateurs</h2>
+                <p class="table-section-subtitle">@Model.Count() utilisateur(s) enregistré(s)</p>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="modern-table">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Email</th>
+                        <th>Téléphone</th>
+                        <th>Statut</th>
+                        <th>Rôle</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @if (Model.Any())
+                {
+                    foreach (var u in Model)
+                    {
+                        <tr>
+                            <td><strong>@u.Nom</strong></td>
+                            <td>@u.Email</td>
+                            <td>@u.Telephone</td>
+                            <td>
+                                @if (u.IsActive)
+                                {
+                                    <span class="status-badge status-badge-active">Actif</span>
+                                }
+                                else
+                                {
+                                    <span class="status-badge status-badge-inactive">Inactif</span>
+                                }
+                            </td>
+                            <td>
+                                @if (u.Role == "Admin")
+                                {
+                                    <span class="status-badge" style="background: rgba(239, 68, 68, 0.1); color: var(--admin-danger);">👑 @u.Role</span>
+                                }
+                                else
+                                {
+                                    <span class="status-badge" style="background: rgba(59, 130, 246, 0.1); color: var(--admin-info);">👤 @u.Role</span>
+                                }
+                            </td>
+                            <td class="text-end">
+                                <a href="/Utilisateurs/Details/@u.Id" class="btn-modern btn-modern-secondary btn-modern-sm me-1">
+                                    👁️ Détails
+                                </a>
+                                <a href="/Utilisateurs/Edit/@u.Id" class="btn-modern btn-modern-secondary btn-modern-sm me-1">
+                                    ✏️ Modifier
+                                </a>
+                                <a href="/Utilisateurs/Delete/@u.Id" class="btn-modern btn-modern-danger btn-modern-sm">
+                                    🗑️ Supprimer
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6">
+                            <div class="empty-state">
+                                <div class="empty-state-icon">👥</div>
+                                <p class="empty-state-text">Aucun utilisateur trouvé</p>
+                            </div>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

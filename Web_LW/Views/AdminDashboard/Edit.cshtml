@@ -4,81 +4,105 @@
     ViewData["Title"] = "Modifier l'annonce";
 }
 
-<h2>Modifier l'annonce</h2>
+<link rel="stylesheet" href="~/css/admin.css" />
 
-<form asp-action="Edit" enctype="multipart/form-data">
-    <input type="hidden" asp-for="Id" />
-
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <label>Titre</label>
-            <input asp-for="Titre" name="annonceModif.Titre" class="form-control" />
-        </div>
-        <div class="col-md-3 mb-3">
-            <label>Prix</label>
-            <input asp-for="Prix" name="annonceModif.Prix" class="form-control" />
-        </div>
-        <div class="col-md-3 mb-3">
-            <label>Ville</label>
-            <input asp-for="Ville" name="annonceModif.Ville" class="form-control" />
-        </div>
-        <div class="col-md-3 mb-3">
-            <label>Statut</label>
-            <select asp-for="Statut" name="annonceModif.Statut" class="form-select">
-                <option value="Active">Active</option>
-                <option value="Vendue">Vendue</option>
-                <option value="Louee">Louee</option>
-            </select>
-        </div>
+<div class="admin-container">
+    <!-- Header -->
+    <div class="admin-header">
+        <div class="admin-header-icon">✏️</div>
+        <h1>Modifier l'annonce</h1>
+        <p>Édition des détails de l'annonce #@Model.Id</p>
     </div>
 
-    <div class="mb-3">
-        <label>Description</label>
-        <textarea asp-for="Description" name="annonceModif.Description" class="form-control" rows="4"></textarea>
+    <!-- Formulaire -->
+    <div class="form-modern">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <input type="hidden" asp-for="Id" />
+
+            <h3 style="font-weight: 700; margin-bottom: 1.5rem; color: var(--admin-dark);">📋 Informations générales</h3>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Titre</label>
+                    <input asp-for="Titre" name="annonceModif.Titre" class="form-control" />
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">Prix (DH)</label>
+                    <input asp-for="Prix" name="annonceModif.Prix" class="form-control" />
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">Ville</label>
+                    <input asp-for="Ville" name="annonceModif.Ville" class="form-control" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">Statut</label>
+                    <select asp-for="Statut" name="annonceModif.Statut" class="form-select">
+                        <option value="Active">Active</option>
+                        <option value="Vendue">Vendue</option>
+                        <option value="Louee">Louée</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label">Description</label>
+                <textarea asp-for="Description" name="annonceModif.Description" class="form-control" rows="5"></textarea>
+            </div>
+
+            @if (Model.Voiture != null)
+            {
+                <hr style="margin: 2rem 0; border-top: 2px solid var(--admin-light);" />
+                <h3 style="font-weight: 700; margin-bottom: 1.5rem; color: var(--admin-dark);">🚗 Détails du véhicule</h3>
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Marque</label>
+                        <input asp-for="Voiture.Marque" name="voitureModif.Marque" class="form-control" />
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Modèle</label>
+                        <input asp-for="Voiture.Modele" name="voitureModif.Modele" class="form-control" />
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Année</label>
+                        <input asp-for="Voiture.Annee" name="voitureModif.Annee" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Kilométrage</label>
+                        <input asp-for="Voiture.Kilometrage" name="voitureModif.Kilometrage" class="form-control" />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Carburant</label>
+                        <select asp-for="Voiture.Carburant" name="voitureModif.Carburant" class="form-control form-select">
+                            <option value="Diesel">Diesel</option>
+                            <option value="Essence">Essence</option>
+                            <option value="Hybride">Hybride</option>
+                            <option value="Electrique">Électrique</option>
+                        </select>
+                    </div>
+                </div>
+            }
+
+            <hr style="margin: 2rem 0; border-top: 2px solid var(--admin-light);" />
+            <h3 style="font-weight: 700; margin-bottom: 1.5rem; color: var(--admin-dark);">📷 Photos</h3>
+            <div class="mb-4">
+                <label class="form-label">Ajouter des photos supplémentaires</label>
+                <input type="file" name="photos" multiple class="form-control" accept="image/*" />
+                <small class="text-muted">Vous pouvez sélectionner plusieurs photos à la fois</small>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn-modern btn-modern-primary">
+                    💾 Enregistrer les modifications
+                </button>
+                <a asp-action="MesAnnonces" class="btn-modern btn-modern-secondary">
+                    ← Annuler
+                </a>
+            </div>
+        </form>
     </div>
-
-    @if (Model.Voiture != null)
-    {
-        <hr />
-        <h4>Détails Véhicule</h4>
-        <div class="row">
-            <div class="col-md-4 mb-3">
-                <label>Marque</label>
-                <input asp-for="Voiture.Marque" name="voitureModif.Marque" class="form-control" />
-            </div>
-            <div class="col-md-4 mb-3">
-                <label>Modèle</label>
-                <input asp-for="Voiture.Modele" name="voitureModif.Modele" class="form-control" />
-            </div>
-            <div class="col-md-4 mb-3">
-                <label>Année</label>
-                <input asp-for="Voiture.Annee" name="voitureModif.Annee" class="form-control" />
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <label>Kilométrage</label>
-                <input asp-for="Voiture.Kilometrage" name="voitureModif.Kilometrage" class="form-control" />
-            </div>
-            <div class="col-md-6 mb-3">
-                <label>Carburant</label>
-                <select asp-for="Voiture.Carburant" name="voitureModif.Carburant" class="form-control form-select">
-                    <option value="Diesel">Diesel</option>
-                    <option value="Essence">Essence</option>
-                    <option value="Hybride">Hybride</option>
-                    <option value="Electrique">Electrique</option>
-                </select>
-            </div>
-        </div>
-
-    }
-
-    <div class="mb-3">
-        <label>Ajouter des photos supplémentaires</label>
-        <input type="file" name="photos" multiple class="form-control" />
-    </div>
-
-    <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
-    <a asp-action="MesAnnonces" class="btn btn-secondary">Annuler</a>
-</form>
+</div>

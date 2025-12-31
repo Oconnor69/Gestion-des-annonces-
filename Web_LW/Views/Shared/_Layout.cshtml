@@ -10,44 +10,90 @@
     <link rel="stylesheet" href="~/Web_LW.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Web_LW</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Explorer" asp-action="Index">Explorer</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+@{
+    var controller = ViewContext.RouteData.Values["controller"]?.ToString() ?? string.Empty;
+    var role = Context.Session.GetString("Role");
+    bool showSidebar = !string.IsNullOrEmpty(role) && !controller.Equals("Explorer", StringComparison.OrdinalIgnoreCase);
+    bool isAdmin = string.Equals(role, "Admin", StringComparison.OrdinalIgnoreCase);
+}
+
+    <div class="app-shell @(showSidebar ? string.Empty : "no-sidebar")">
+        @if (showSidebar)
+        {
+            <aside class="app-sidebar @(isAdmin ? "admin" : "user")">
+                <div class="brand">@(isAdmin ? "🛡️ Admin Panel" : "🏠 Mon Espace")</div>
+                <ul class="menu">
+                    @if (isAdmin)
+                    {
+                        <li><a asp-controller="AdminDashboard" asp-action="Index" class="@(controller == "AdminDashboard" ? "active" : string.Empty)"><span class="icon">🏠</span> Dashboard</a></li>
+                        <li><a asp-controller="Utilisateurs" asp-action="Index" class="@(controller == "Utilisateurs" ? "active" : string.Empty)"><span class="icon">👥</span> Utilisateurs</a></li>
+                        <li><a asp-controller="Categories" asp-action="Index" class="@(controller == "Categories" ? "active" : string.Empty)"><span class="icon">🏷️</span> Categories</a></li>
+                        <li><a asp-controller="AdminAnnonces" asp-action="Index" class="@(controller == "AdminAnnonces" ? "active" : string.Empty)"><span class="icon">📢</span> Annonces</a></li>
+                        <li><a asp-controller="Explorer" asp-action="Index"><span class="icon">🧭</span> Explorer</a></li>
+                    }
+                    else
+                    {
+                        <li><a asp-controller="UserDashboard" asp-action="Index" class="@(controller == "UserDashboard" ? "active" : string.Empty)"><span class="icon">📊</span> Dashboard</a></li>
+                        <li><a asp-controller="Annonces" asp-action="MesAnnonces" class="@(controller == "Annonces" ? "active" : string.Empty)"><span class="icon">📢</span> Mes annonces</a></li>
+                        <li><a asp-controller="Annonces" asp-action="ChoisirCategorie"><span class="icon">➕</span> Creer annonce</a></li>
+                        <li><a asp-controller="Explorer" asp-action="Index"><span class="icon">🧭</span> Explorer</a></li>
+                    }
+                </ul>
+                <div class="sidebar-footer">
+                    <a asp-controller="Auth" asp-action="Logout" class="logout"><span class="me-2">🚪</span> Deconnexion</a>
                 </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+            </aside>
+        }
+
+        <div class="app-main">
+            <header class="topbar">
+                <div class="brand-inline"><a asp-controller="Home" asp-action="Index">Web_LW</a></div>
+                <div class="topbar-links">
+                    <a asp-controller="Explorer" asp-action="Index">Explorer</a>
+                    <a asp-controller="Home" asp-action="Privacy">Privacy</a>
+                </div>
+            </header>
+            <main role="main" class="app-content">
+                @RenderBody()
+            </main>
+            <footer class="app-footer">
+                &copy; 2025 - Web_LW
+            </footer>
+        </div>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - Web_LW - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
+    <style>
+        .app-shell { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; background: #f4f6fb; }
+        .app-shell.no-sidebar { grid-template-columns: 1fr; }
+        .app-sidebar { padding: 1.75rem 1.25rem; color: #fff; display: flex; flex-direction: column; gap: 1rem; }
+        .app-sidebar.admin { background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); }
+        .app-sidebar.user { background: linear-gradient(180deg, #0f0c29 0%, #302b63 50%, #24243e 100%); }
+        .app-sidebar .brand { font-size: 1.25rem; font-weight: 800; margin-bottom: 1rem; }
+        .app-sidebar .menu { list-style: none; padding: 0; margin: 0; }
+        .app-sidebar .menu li { margin-bottom: 0.35rem; }
+        .app-sidebar .menu a { color: rgba(255,255,255,0.8); text-decoration: none; padding: 0.75rem 0.9rem; border-radius: 12px; display: flex; align-items: center; gap: 0.65rem; transition: all 0.2s ease; }
+        .app-sidebar .menu a:hover, .app-sidebar .menu a.active { background: rgba(255,255,255,0.12); color: #fff; transform: translateX(4px); }
+        .app-sidebar .icon { width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; border-radius: 10px; background: rgba(255,255,255,0.12); }
+        .sidebar-footer { margin-top: auto; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 1rem; }
+        .logout { color: rgba(255,255,255,0.85); text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem; }
+        .logout:hover { color: #fff; }
+        .app-main { background: #f4f6fb; display: flex; flex-direction: column; min-height: 100vh; }
+        .topbar { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.5rem; background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+        .brand-inline a { text-decoration: none; font-weight: 700; color: #1f2937; }
+        .topbar-links a { margin-left: 1rem; color: #4b5563; text-decoration: none; }
+        .topbar-links a:hover { color: #111827; }
+        .app-content { flex: 1; padding: 1.5rem; }
+        .app-footer { padding: 1rem 1.5rem; color: #6b7280; }
+        @@media (max-width: 992px) {
+            .app-shell { grid-template-columns: 1fr; }
+            .app-sidebar { display: none; }
+            .app-main { min-height: 100vh; }
+        }
+    </style>
 </body>
 </html>

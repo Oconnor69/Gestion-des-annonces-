@@ -1,0 +1,99 @@
+@model IEnumerable<Web_LW.Models.AdminAnnonceRow>
+@{
+    ViewData["Title"] = "Annonces (Admin)";
+}
+
+<link rel="stylesheet" href="~/css/admin.css" />
+
+<div class="admin-container">
+    <!-- Header -->
+    <div class="admin-header">
+        <div class="admin-header-icon">📢</div>
+        <h1>Gestion des annonces</h1>
+        <p>Consultation et modération de toutes les annonces publiées sur la plateforme</p>
+    </div>
+
+    <!-- Message de succès -->
+    @if (TempData["AdminMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert" style="border-radius: 12px; border-left: 4px solid var(--admin-success);">
+            <strong>✓</strong> @TempData["AdminMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <!-- Table des annonces -->
+    <div class="table-section">
+        <div class="table-section-header">
+            <div>
+                <h2 class="table-section-title">Toutes les annonces</h2>
+                <p class="table-section-subtitle">Liste complète des annonces avec options de modération</p>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="modern-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Titre</th>
+                        <th>Utilisateur</th>
+                        <th>Catégorie</th>
+                        <th>Date</th>
+                        <th>Statut</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @if (Model.Any())
+                {
+                    foreach (var a in Model)
+                    {
+                        <tr>
+                            <td><strong>@a.Id</strong></td>
+                            <td><strong>@a.Titre</strong></td>
+                            <td>@a.Utilisateur</td>
+                            <td>@a.Categorie</td>
+                            <td>@a.DatePublication.ToString("dd/MM/yyyy")</td>
+                            <td>
+                                @if (a.Statut == "Active")
+                                {
+                                    <span class="status-badge status-badge-active">@a.Statut</span>
+                                }
+                                else if (a.Statut == "Vendue" || a.Statut == "Louee")
+                                {
+                                    <span class="status-badge status-badge-inactive">@a.Statut</span>
+                                }
+                                else
+                                {
+                                    <span class="status-badge status-badge-pending">@a.Statut</span>
+                                }
+                            </td>
+                            <td class="text-end">
+                                <a asp-controller="AdminAnnonces" asp-action="Details" asp-route-id="@a.Id" class="btn-modern btn-modern-secondary btn-modern-sm me-1">
+                                    👁️ Détails
+                                </a>
+                                <form asp-action="Delete" method="post" class="d-inline" onsubmit="return confirm('⚠️ Êtes-vous sûr de vouloir supprimer cette annonce ?');">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="id" value="@a.Id" />
+                                    <button class="btn-modern btn-modern-danger btn-modern-sm">🗑️ Supprimer</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="7">
+                            <div class="empty-state">
+                                <div class="empty-state-icon">📭</div>
+                                <p class="empty-state-text">Aucune annonce dans la base de données</p>
+                            </div>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

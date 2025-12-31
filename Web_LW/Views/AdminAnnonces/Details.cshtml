@@ -1,0 +1,146 @@
+@model Web_LW.Models.Annonce
+@{
+    ViewData["Title"] = "Détail annonce (admin)";
+}
+
+<link rel="stylesheet" href="~/css/admin.css" />
+
+<div class="admin-container">
+    <!-- Header avec actions -->
+    <div class="detail-header">
+        <div>
+            <h1 class="detail-title">@Model.Titre</h1>
+            <div class="detail-meta">
+                <span class="detail-meta-item">ID @Model.Id</span>
+                <span class="detail-meta-item">@Model.DatePublication.ToString("dd MMMM yyyy")</span>
+                <span class="detail-meta-item">@(Model.Utilisateur?.Nom ?? "Utilisateur inconnu")</span>
+            </div>
+        </div>
+        <div class="d-flex gap-2">
+            <a asp-action="Index" class="btn-modern btn-modern-secondary">
+                ← Retour
+            </a>
+            <form asp-action="Delete" method="post" onsubmit="return confirm('⚠️ Supprimer cette annonce de façon permanente ?');" class="d-inline">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="id" value="@Model.Id" />
+                <button class="btn-modern btn-modern-danger">🗑️ Supprimer</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Informations principales -->
+    <div class="detail-card">
+        <h3 style="font-weight: 700; margin-bottom: 1rem; color: var(--admin-dark);">📋 Informations générales</h3>
+        <div class="detail-info-grid">
+            <div class="detail-info-item">
+                <div class="detail-info-label">Statut</div>
+                <div class="detail-info-value">
+                    @if (Model.Statut == "Active")
+                    {
+                        <span class="status-badge status-badge-active">@Model.Statut</span>
+                    }
+                    else
+                    {
+                        <span class="status-badge status-badge-inactive">@Model.Statut</span>
+                    }
+                </div>
+            </div>
+            <div class="detail-info-item">
+                <div class="detail-info-label">Catégorie</div>
+                <div class="detail-info-value">@(Model.Categorie?.Nom ?? "Sans catégorie")</div>
+            </div>
+            <div class="detail-info-item">
+                <div class="detail-info-label">Prix</div>
+                <div class="detail-info-value">@Model.Prix DH</div>
+            </div>
+            <div class="detail-info-item">
+                <div class="detail-info-label">Ville</div>
+                <div class="detail-info-value">@Model.Ville</div>
+            </div>
+        </div>
+        <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px solid var(--admin-light);">
+            <div class="detail-info-label" style="margin-bottom: 0.75rem;">Description</div>
+            <p style="color: var(--admin-dark); line-height: 1.6;">@Model.Description</p>
+        </div>
+    </div>
+
+    <!-- Photos -->
+    @if (Model.Photos != null && Model.Photos.Any())
+    {
+        <div class="detail-card">
+            <h3 style="font-weight: 700; margin-bottom: 1.5rem; color: var(--admin-dark);">📷 Photos (@Model.Photos.Count)</h3>
+            <div class="photos-grid-modern">
+                @foreach (var p in Model.Photos)
+                {
+                    <div class="photo-item-modern">
+                        <img src="@p.Url" alt="photo @Model.Titre" />
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+    <!-- Détails Voiture -->
+    @if (Model.Voiture != null)
+    {
+        <div class="detail-card">
+            <h3 style="font-weight: 700; margin-bottom: 1.5rem; color: var(--admin-dark);">🚗 Détails du véhicule</h3>
+            <div class="detail-info-grid">
+                <div class="detail-info-item">
+                    <div class="detail-info-label">Marque & Modèle</div>
+                    <div class="detail-info-value">@Model.Voiture.Marque @Model.Voiture.Modele</div>
+                </div>
+                <div class="detail-info-item">
+                    <div class="detail-info-label">Année</div>
+                    <div class="detail-info-value">@Model.Voiture.Annee</div>
+                </div>
+                <div class="detail-info-item">
+                    <div class="detail-info-label">Kilométrage</div>
+                    <div class="detail-info-value">@Model.Voiture.Kilometrage km</div>
+                </div>
+                <div class="detail-info-item">
+                    <div class="detail-info-label">Carburant</div>
+                    <div class="detail-info-value">@Model.Voiture.Carburant</div>
+                </div>
+                <div class="detail-info-item">
+                    <div class="detail-info-label">Boîte de vitesse</div>
+                    <div class="detail-info-value">@Model.Voiture.BoiteVitesse</div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <!-- Détails Immobilier -->
+    @if (Model.Immobilier != null)
+    {
+        <div class="detail-card">
+            <h3 style="font-weight: 700; margin-bottom: 1.5rem; color: var(--admin-dark);">🏠 Détails de l'immobilier</h3>
+            <div class="detail-info-grid">
+                <div class="detail-info-item">
+                    <div class="detail-info-label">Type de bien</div>
+                    <div class="detail-info-value">@Model.Immobilier.TypeBien</div>
+                </div>
+                <div class="detail-info-item">
+                    <div class="detail-info-label">Transaction</div>
+                    <div class="detail-info-value">@Model.Immobilier.TypeTransaction</div>
+                </div>
+                <div class="detail-info-item">
+                    <div class="detail-info-label">Surface</div>
+                    <div class="detail-info-value">@Model.Immobilier.Surface m²</div>
+                </div>
+                <div class="detail-info-item">
+                    <div class="detail-info-label">Chambres</div>
+                    <div class="detail-info-value">@Model.Immobilier.NombreChambres</div>
+                </div>
+                <div class="detail-info-item">
+                    <div class="detail-info-label">Salles de bain</div>
+                    <div class="detail-info-value">@Model.Immobilier.NombreSallesBain</div>
+                </div>
+                <div class="detail-info-item">
+                    <div class="detail-info-label">Étage</div>
+                    <div class="detail-info-value">@Model.Immobilier.Etage / @Model.Immobilier.NombreEtages</div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
