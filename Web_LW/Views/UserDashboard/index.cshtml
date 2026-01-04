@@ -1,4 +1,4 @@
-﻿@model Web_LW.Models.UserDashboardViewModel
+@model Web_LW.Models.UserDashboardViewModel
 @using System.Text.Json
 @{
     ViewData["Title"] = "Mon Dashboard";
@@ -81,7 +81,7 @@
         <section class="user-content">
             <div class="welcome-banner">
                 <div class="position-relative" style="z-index: 1;">
-                    <h1 class="fw-bold mb-2">Bienvenue @Model.UserName 👋</h1>
+                    <h1 class="fw-bold mb-2">Bienvenue @Model.UserName <i class="bi bi-hand-wave"></i></h1>
                     <p class="opacity-90 mb-0">Gerez vos annonces et decouvrez de nouvelles opportunites</p>
                 </div>
             </div>
@@ -116,20 +116,20 @@
                 </div>
             </div>
 
-            <h5 class="fw-bold mb-4"><span class="me-2">🚀</span>Que souhaitez-vous faire ?</h5>
+            <h5 class="fw-bold mb-4"><i class="bi bi-stars me-2"></i>Que souhaitez-vous faire ?</h5>
             <div class="quick-tiles">
                 <a asp-controller="Annonces" asp-action="ChoisirCategorie" class="tile create">
-                    <div class="tile-icon">➕</div>
+                    <div class="tile-icon"><i class="bi bi-plus-circle"></i></div>
                     <h5 class="fw-bold mb-2">Creer une annonce</h5>
                     <p class="text-muted small mb-0">Publiez votre bien en quelques clics</p>
                 </a>
                 <a asp-controller="Annonces" asp-action="MesAnnonces" class="tile view">
-                    <div class="tile-icon">📋</div>
+                    <div class="tile-icon"><i class="bi bi-card-list"></i></div>
                     <h5 class="fw-bold mb-2">Mes annonces</h5>
                     <p class="text-muted small mb-0">Consultez et gerez vos publications</p>
                 </a>
                 <a asp-controller="Explorer" asp-action="Index" class="tile explore">
-                    <div class="tile-icon">🔍</div>
+                    <div class="tile-icon"><i class="bi bi-compass"></i></div>
                     <h5 class="fw-bold mb-2">Explorer</h5>
                     <p class="text-muted small mb-0">Decouvrez toutes les annonces</p>
                 </a>

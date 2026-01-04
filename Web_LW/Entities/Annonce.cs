@@ -1,6 +1,7 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 
-namespace Web_LW.Models
+namespace Web_LW.Entities
 {
     public class Annonce
     {
@@ -21,14 +22,11 @@ namespace Web_LW.Models
         public int CategorieId { get; set; }
         public Categorie Categorie { get; set; }
 
-        public List<AnnoncePhoto> Photos { get; set; }
-        public List<Commentaire> Commentaires { get; set; }
-
-
+        public List<AnnoncePhoto> Photos { get; set; } = new();
+        public List<Commentaire> Commentaires { get; set; } = new();
 
         // Détails spécialisés
         public VoitureAnnonce? Voiture { get; set; }
         public ImmobilierAnnonce? Immobilier { get; set; }
-       
     }
 }

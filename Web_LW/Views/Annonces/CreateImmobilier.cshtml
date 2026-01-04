@@ -1,19 +1,19 @@
-ï»¿@{
-    ViewData["Title"] = "DÃ©poser une annonce immobiliÃ¨re";
+@{
+    ViewData["Title"] = "Déposer une annonce immobilière";
 }
 
 <div class="container mt-4">
-    <h2><i class="bi bi-house-door"></i> DÃ©poser une annonce immobiliÃ¨re</h2>
+    <h2><i class="bi bi-house-door"></i> Déposer une annonce immobilière</h2>
 
     <form asp-action="CreateImmobilier" method="post" enctype="multipart/form-data">
 
         <div class="card mb-4">
-            <div class="card-header bg-primary text-white">Informations GÃ©nÃ©rales</div>
+            <div class="card-header bg-primary text-white">Informations Générales</div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label>Titre de l'annonce</label>
-                        <input type="text" name="annonce.Titre" class="form-control" required placeholder="Ex: Appartement ensoleillÃ© centre ville..." />
+                        <input type="text" name="annonce.Titre" class="form-control" required placeholder="Ex: Appartement ensoleillé centre ville..." />
                     </div>
                     <div class="col-md-3 mb-3">
                         <label>Prix (DH)</label>
@@ -26,13 +26,13 @@
                 </div>
                 <div class="mb-3">
                     <label>Description (Obligatoire)</label>
-                    <textarea name="annonce.Description" class="form-control" rows="4" required placeholder="DÃ©tails du bien, quartier, proximitÃ©..."></textarea>
+                    <textarea name="annonce.Description" class="form-control" rows="4" required placeholder="Détails du bien, quartier, proximité..."></textarea>
                 </div>
             </div>
         </div>
 
         <div class="card mb-4">
-            <div class="card-header bg-success text-white">CaractÃ©ristiques du Bien</div>
+            <div class="card-header bg-success text-white">Caractéristiques du Bien</div>
             <div class="card-body">
 
                 <div class="row">
@@ -54,18 +54,18 @@
                         </select>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label>Ã‰tat du bien</label>
+                        <label>État du bien</label>
                         <select name="immo.EtatBien" class="form-select">
-                            <option value="Bon etat">Bon Ã©tat</option>
+                            <option value="Bon etat">Bon état</option>
                             <option value="Neuf">Neuf</option>
-                            <option value="A renover">Ã€ rÃ©nover</option>
+                            <option value="A renover">À rénover</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-3 mb-3">
-                        <label>Surface (mÂ²)</label>
+                        <label>Surface (m²)</label>
                         <input type="number" name="immo.Surface" class="form-control" required />
                     </div>
                     <div class="col-md-3 mb-3">
@@ -77,25 +77,25 @@
                         <input type="number" name="immo.NombreSallesBain" class="form-control" />
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label>AnnÃ©e Construction</label>
+                        <label>Année Construction</label>
                         <input type="number" name="immo.AnneeConstruction" class="form-control" />
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-4 mb-3">
-                        <label>Ã‰tage (si appart)</label>
+                        <label>Étage (si appart)</label>
                         <input type="number" name="immo.Etage" class="form-control" />
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label>Nombre d'Ã©tages (immeuble/villa)</label>
+                        <label>Nombre d'étages (immeuble/villa)</label>
                         <input type="number" name="immo.NombreEtages" class="form-control" />
                     </div>
                     <div class="col-md-4 mb-3">
                         <label>Orientation</label>
                         <select name="immo.Orientation" class="form-select">
                             <option value="">-- Choisir --</option>
-                            <option value="Sud">Sud (EnsoleillÃ©)</option>
+                            <option value="Sud">Sud (Ensoleillé)</option>
                             <option value="Nord">Nord</option>
                             <option value="Est">Est</option>
                             <option value="Ouest">Ouest</option>
@@ -136,7 +136,7 @@
                     <div class="col-md-3">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" name="immo.Meuble" value="true" id="meu">
-                            <label class="form-check-label" for="meu">MeublÃ©</label>
+                            <label class="form-check-label" for="meu">Meublé</label>
                             <input type="hidden" name="immo.Meuble" value="false" />
                         </div>
                     </div>
@@ -159,7 +159,7 @@
             <div class="card-body">
                 <label class="form-label fw-bold">Photos du bien</label>
                 <input type="file" name="photos" multiple class="form-control" />
-                <small class="text-muted">Maintenez CTRL pour sÃ©lectionner plusieurs photos.</small>
+                <small class="text-muted">Maintenez CTRL pour sélectionner plusieurs photos.</small>
             </div>
         </div>
 

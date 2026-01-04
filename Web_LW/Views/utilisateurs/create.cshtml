@@ -1,8 +1,8 @@
-ï»¿@model Web_LW.Models.Utilisateur
+@model Web_LW.Entities.Utilisateur
 
 <div class="container mt-5" style="max-width: 600px;">
     <div class="card shadow-lg p-4">
-        <h2 class="text-center mb-4">CrÃ©er un Utilisateur</h2>
+        <h2 class="text-center mb-4">Créer un Utilisateur</h2>
 
         <form method="post" action="/Utilisateurs/Create">
 
@@ -22,19 +22,19 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label">TÃ©lÃ©phone</label>
-                <input type="text" name="Telephone" class="form-control" placeholder="NumÃ©ro de tÃ©lÃ©phone" />
+                <label class="form-label">Téléphone</label>
+                <input type="text" name="Telephone" class="form-control" placeholder="Numéro de téléphone" />
             </div>
 
             <div class="mb-3">
-                <label class="form-label">RÃ´le</label>
+                <label class="form-label">Rôle</label>
                 <select name="Role" class="form-select" required>
                     <option value="User" selected>User</option>
                     <option value="Admin">Admin</option>
                 </select>
             </div>
 
-            <button type="submit" class="btn btn-primary w-100">CrÃ©er l'utilisateur</button>
+            <button type="submit" class="btn btn-primary w-100">Créer l'utilisateur</button>
         </form>
     </div>
 </div>

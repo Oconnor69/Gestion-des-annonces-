@@ -1,4 +1,4 @@
-﻿namespace Web_LW.Models
+namespace Web_LW.Entities
 {
     public class AnnoncePhoto
     {

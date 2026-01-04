@@ -3,45 +3,314 @@
     ViewData["Title"] = "Inscription";
 }
 
-<h2 class="mb-3">Creer un compte</h2>
+<style>
+    .register-container {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        position: relative;
+        overflow: hidden;
+    }
+    .register-container::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -20%;
+        width: 800px;
+        height: 800px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        animation: float 6s ease-in-out infinite;
+    }
+    .register-container::after {
+        content: '';
+        position: absolute;
+        bottom: -30%;
+        left: -10%;
+        width: 600px;
+        height: 600px;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 50%;
+        animation: float 8s ease-in-out infinite reverse;
+    }
+    @@keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(20px); }
+    }
+    .register-card {
+        background: white;
+        border-radius: 25px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        max-width: 550px;
+        width: 100%;
+        padding: 50px 45px;
+        position: relative;
+        z-index: 1;
+        animation: slideUp 0.5s ease;
+    }
+    @@keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    .register-header {
+        text-align: center;
+        margin-bottom: 35px;
+    }
+    .register-icon {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        border-radius: 20px;
+        color: white;
+        font-size: 2.5rem;
+    }
+    .register-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1f2937;
+        margin-bottom: 10px;
+    }
+    .register-subtitle {
+        color: #6b7280;
+        font-size: 1rem;
+    }
+    .form-group {
+        margin-bottom: 22px;
+    }
+    .form-label {
+        display: block;
+        margin-bottom: 8px;
+        color: #374151;
+        font-weight: 600;
+        font-size: 0.95rem;
+    }
+    .form-input {
+        width: 100%;
+        padding: 13px 18px;
+        border: 2px solid #e5e7eb;
+        border-radius: 12px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: #f9fafb;
+    }
+    .form-input:focus {
+        outline: none;
+        border-color: #f093fb;
+        background: white;
+        box-shadow: 0 0 0 4px rgba(240, 147, 251, 0.1);
+    }
+    .form-input-icon-wrapper {
+        position: relative;
+    }
+    .form-input-icon {
+        position: absolute;
+        left: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #9ca3af;
+        font-size: 1.2rem;
+    }
+    .form-input-with-icon {
+        padding-left: 50px;
+    }
+    .btn-register {
+        width: 100%;
+        padding: 16px;
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 10px;
+    }
+    .btn-register:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(240, 147, 251, 0.4);
+    }
+    .register-divider {
+        text-align: center;
+        margin: 25px 0;
+        position: relative;
+    }
+    .register-divider::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: #e5e7eb;
+    }
+    .register-divider-text {
+        background: white;
+        padding: 0 15px;
+        color: #9ca3af;
+        font-size: 0.9rem;
+        position: relative;
+    }
+    .register-footer {
+        text-align: center;
+        margin-top: 20px;
+    }
+    .register-footer-text {
+        color: #6b7280;
+        font-size: 0.95rem;
+    }
+    .register-footer-link {
+        color: #f093fb;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s ease;
+    }
+    .register-footer-link:hover {
+        color: #f5576c;
+    }
+    .text-danger {
+        color: #dc2626;
+        font-size: 0.85rem;
+        margin-top: 5px;
+        display: block;
+    }
+    .validation-summary-errors {
+        background: #fee2e2;
+        color: #991b1b;
+        padding: 14px 18px;
+        border-radius: 12px;
+        margin-bottom: 25px;
+        border: 1px solid #fca5a5;
+    }
+    .validation-summary-errors ul {
+        margin: 0;
+        padding-left: 20px;
+    }
+    .back-home {
+        position: absolute;
+        top: 30px;
+        left: 30px;
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 20px;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+    }
+    .back-home:hover {
+        background: rgba(255, 255, 255, 0.25);
+        transform: translateX(-5px);
+        color: white;
+    }
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+    @@media (max-width: 576px) {
+        .form-row {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
 
-<div class="row">
-    <div class="col-md-6">
+<div class="register-container">
+    <a asp-controller="Home" asp-action="Index" class="back-home">
+        <i class="bi bi-arrow-left"></i>
+        Retour à l'accueil
+    </a>
+    
+    <div class="register-card">
+        <div class="register-header">
+            <div class="register-icon">
+                <i class="bi bi-person-plus-fill"></i>
+            </div>
+            <h1 class="register-title">Créer un compte</h1>
+            <p class="register-subtitle">Rejoignez-nous et commencez à publier vos annonces</p>
+        </div>
+
         <form asp-action="Register" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="ModelOnly" class="validation-summary-errors"></div>
 
-            <div class="mb-3">
-                <label class="form-label">Nom</label>
-                <input asp-for="Nom" class="form-control" />
+            <div class="form-group">
+                <label class="form-label">Nom complet</label>
+                <div class="form-input-icon-wrapper">
+                    <i class="bi bi-person-fill form-input-icon"></i>
+                    <input asp-for="Nom" class="form-input form-input-with-icon" placeholder="Jean Dupont" />
+                </div>
                 <span asp-validation-for="Nom" class="text-danger"></span>
             </div>
 
-            <div class="mb-3">
-                <label class="form-label">Email</label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <div class="form-input-icon-wrapper">
+                        <i class="bi bi-envelope-fill form-input-icon"></i>
+                        <input asp-for="Email" class="form-input form-input-with-icon" placeholder="email@exemple.com" />
+                    </div>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Téléphone</label>
+                    <div class="form-input-icon-wrapper">
+                        <i class="bi bi-telephone-fill form-input-icon"></i>
+                        <input asp-for="Telephone" class="form-input form-input-with-icon" placeholder="06 12 34 56 78" />
+                    </div>
+                    <span asp-validation-for="Telephone" class="text-danger"></span>
+                </div>
             </div>
 
-            <div class="mb-3">
-                <label class="form-label">Telephone</label>
-                <input asp-for="Telephone" class="form-control" />
-                <span asp-validation-for="Telephone" class="text-danger"></span>
-            </div>
-
-            <div class="mb-3">
+            <div class="form-group">
                 <label class="form-label">Mot de passe</label>
-                <input asp-for="MotDePasse" class="form-control" type="password" />
+                <div class="form-input-icon-wrapper">
+                    <i class="bi bi-lock-fill form-input-icon"></i>
+                    <input asp-for="MotDePasse" class="form-input form-input-with-icon" type="password" placeholder="••••••••" />
+                </div>
                 <span asp-validation-for="MotDePasse" class="text-danger"></span>
             </div>
 
-            <div class="mb-3">
+            <div class="form-group">
                 <label class="form-label">Confirmer le mot de passe</label>
-                <input asp-for="ConfirmationMotDePasse" class="form-control" type="password" />
+                <div class="form-input-icon-wrapper">
+                    <i class="bi bi-lock-fill form-input-icon"></i>
+                    <input asp-for="ConfirmationMotDePasse" class="form-input form-input-with-icon" type="password" placeholder="••••••••" />
+                </div>
                 <span asp-validation-for="ConfirmationMotDePasse" class="text-danger"></span>
             </div>
 
-            <button class="btn btn-primary" type="submit">S'inscrire</button>
-            <a asp-action="Login" class="btn btn-link">Deja un compte ? Connexion</a>
+            <button class="btn-register" type="submit">
+                Créer mon compte
+            </button>
         </form>
+
+        <div class="register-divider">
+            <span class="register-divider-text">OU</span>
+        </div>
+
+        <div class="register-footer">
+            <p class="register-footer-text">
+                Vous avez déjà un compte ? 
+                <a asp-action="Login" class="register-footer-link">Se connecter</a>
+            </p>
+        </div>
     </div>
 </div>

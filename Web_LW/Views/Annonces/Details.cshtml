@@ -1,4 +1,4 @@
-﻿@model Web_LW.Models.Annonce
+@model Web_LW.Entities.Annonce
 
 @{
     ViewData["Title"] = "Détails Annonce";
@@ -126,13 +126,13 @@
                                 <span class="d-block"><i class="bi bi-droplet"></i> @Model.Immobilier.NombreSallesBain Salles de bain</span>
                             </div>
                             <div class="col-6 mb-2">
-                                <span class="d-block"><i class="bi bi-layers"></i> Étage : @Model.Immobilier.Etage / @Model.Immobilier.NombreEtages</span>
+                                <span class="d-block"><i class="bi bi-layers"></i> �tage : @Model.Immobilier.Etage / @Model.Immobilier.NombreEtages</span>
                             </div>
                             <div class="col-6 mb-2">
                                 <span class="d-block"><i class="bi bi-compass"></i> Orientation : @(string.IsNullOrEmpty(Model.Immobilier.Orientation) ? "-" : Model.Immobilier.Orientation)</span>
                             </div>
                             <div class="col-6 mb-2">
-                                <span class="d-block"><i class="bi bi-bricks"></i> Année : @(Model.Immobilier.AnneeConstruction > 0 ? Model.Immobilier.AnneeConstruction.ToString() : "-")</span>
+                                <span class="d-block"><i class="bi bi-bricks"></i> Ann�e : @(Model.Immobilier.AnneeConstruction > 0 ? Model.Immobilier.AnneeConstruction.ToString() : "-")</span>
                             </div>
                         </div>
 
@@ -153,7 +153,7 @@
                 </div>
 
                 <div class="mb-4">
-                    <h6 class="fw-bold">Équipements :</h6>
+                    <h6 class="fw-bold">�quipements :</h6>
                     @if (Model.Immobilier.Ascenseur)
                     {
                         <span class="badge bg-secondary me-1"><i class="bi bi-arrow-up-circle"></i> Ascenseur</span>
@@ -177,7 +177,7 @@
 
                     @if (!Model.Immobilier.Ascenseur && !Model.Immobilier.Parking && !Model.Immobilier.Jardin && !Model.Immobilier.Balcon && !Model.Immobilier.Meuble)
                     {
-                        <span class="text-muted small">Aucun équipement spécifique renseigné.</span>
+                        <span class="text-muted small">Aucun �quipement sp�cifique renseign�.</span>
                     }
                 </div>
             }

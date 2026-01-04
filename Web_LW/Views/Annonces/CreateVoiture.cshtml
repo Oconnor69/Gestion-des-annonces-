@@ -1,8 +1,8 @@
-ï»¿@{
+@{
     ViewData["Title"] = "Vendre une voiture";
 }
 
-<h2>DÃ©poser une annonce voiture</h2>
+<h2>Déposer une annonce voiture</h2>
 
 <form asp-action="CreateVoiture" method="post" enctype="multipart/form-data">
 
@@ -23,13 +23,13 @@
     </div>
 
     <div class="mb-3">
-        <label>Description dÃ©taillÃ©e (Obligatoire)</label>
-        <textarea name="annonce.Description" class="form-control" rows="4" required placeholder="DÃ©crivez l'Ã©tat de la voiture, les options, l'entretien..."></textarea>
+        <label>Description détaillée (Obligatoire)</label>
+        <textarea name="annonce.Description" class="form-control" rows="4" required placeholder="Décrivez l'état de la voiture, les options, l'entretien..."></textarea>
     </div>
 
     <hr />
 
-    <h3>CaractÃ©ristiques du vÃ©hicule</h3>
+    <h3>Caractéristiques du véhicule</h3>
 
     <div class="row">
         <div class="col-md-4 mb-3">
@@ -37,18 +37,18 @@
             <input type="text" name="voiture.Marque" class="form-control" required />
         </div>
         <div class="col-md-4 mb-3">
-            <label>ModÃ¨le</label>
+            <label>Modèle</label>
             <input type="text" name="voiture.Modele" class="form-control" required />
         </div>
         <div class="col-md-4 mb-3">
-            <label>AnnÃ©e</label>
+            <label>Année</label>
             <input type="number" name="voiture.Annee" class="form-control" min="1900" max="2025" required />
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-4 mb-3">
-            <label>KilomÃ©trage</label>
+            <label>Kilométrage</label>
             <input type="number" name="voiture.Kilometrage" class="form-control" required />
         </div>
         <div class="col-md-4 mb-3">
@@ -73,7 +73,7 @@
         </div>
 
         <div class="col-md-6 mb-3">
-            <label>BoÃ®te de vitesse</label>
+            <label>Boîte de vitesse</label>
             <select name="voiture.BoiteVitesse" class="form-control form-select">
                 <option value="Manuelle">Manuelle</option>
                 <option value="Automatique">Automatique</option>
@@ -83,7 +83,7 @@
 
     <div class="row">
         <div class="col-md-6 mb-3">
-            <label>Ã‰tat</label>
+            <label>État</label>
             <select name="voiture.Etat" class="form-control form-select">
                 <option value="Occasion">Occasion</option>
                 <option value="Neuf">Neuf</option>
@@ -92,8 +92,8 @@
         <div class="col-md-6 mb-3">
             <label>Origine</label>
             <select name="voiture.Origine" class="form-control form-select">
-                <option value="Local">DÃ©douanÃ©e / Local</option>
-                <option value="Importe">ImportÃ©e (WW)</option>
+                <option value="Local">Dédouanée / Local</option>
+                <option value="Importe">Importée (WW)</option>
             </select>
         </div>
     </div>
@@ -103,7 +103,7 @@
         <input type="number" name="voiture.NombrePortes" class="form-control" value="5" />
     </div>
 
-    <h4>Options et Ã‰quipements</h4>
+    <h4>Options et Équipements</h4>
     <div class="row mb-4">
         <div class="col-md-3">
             <div class="form-check">
@@ -122,7 +122,7 @@
         <div class="col-md-3">
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" name="voiture.CameraRecul" value="true" id="cam">
-                <label class="form-check-label" for="cam">CamÃ©ra de recul</label>
+                <label class="form-check-label" for="cam">Caméra de recul</label>
                 <input type="hidden" name="voiture.CameraRecul" value="false" />
             </div>
         </div>
@@ -150,7 +150,7 @@
     </div>
 
     <div class="mb-3">
-        <label>Photos du vÃ©hicule</label>
+        <label>Photos du véhicule</label>
 
         <div id="photos-container">
             <input type="file" name="photos" class="form-control mb-2" />
@@ -163,14 +163,14 @@
 
     <script>
         function ajouterChampPhoto() {
-            // 1. CrÃ©er un nouvel input
+            // 1. Créer un nouvel input
             var div = document.createElement('div');
             div.className = 'd-flex gap-2 mb-2'; // Un peu de style Bootstrap
 
             // Le champ fichier
             var input = document.createElement('input');
             input.type = 'file';
-            input.name = 'photos'; // IMPORTANT : Le mÃªme nom que dans le contrÃ´leur
+            input.name = 'photos'; // IMPORTANT : Le même nom que dans le contrôleur
             input.className = 'form-control';
 
             // Bouton pour supprimer la ligne (optionnel mais pratique)

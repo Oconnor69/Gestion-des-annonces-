@@ -1,11 +1,11 @@
-﻿@model IEnumerable<Web_LW.Models.Utilisateur>
+@model IEnumerable<Web_LW.Entities.Utilisateur>
 
 <link rel="stylesheet" href="~/css/admin.css" />
 
 <div class="admin-container">
     <!-- Header -->
     <div class="admin-header">
-        <div class="admin-header-icon">👥</div>
+        <div class="admin-header-icon"><i class="bi bi-people"></i></div>
         <h1>Gestion des utilisateurs</h1>
         <p>Administrez les comptes utilisateurs et leurs permissions sur la plateforme</p>
     </div>
@@ -13,7 +13,7 @@
     <!-- Action button -->
     <div class="mb-4">
         <a class="btn-modern btn-modern-primary" href="/Utilisateurs/Create">
-            ➕ Ajouter un utilisateur
+            <i class="bi bi-plus-lg"></i> Ajouter un utilisateur
         </a>
     </div>
 
@@ -22,7 +22,7 @@
         <div class="table-section-header">
             <div>
                 <h2 class="table-section-title">Liste des utilisateurs</h2>
-                <p class="table-section-subtitle">@Model.Count() utilisateur(s) enregistré(s)</p>
+                <p class="table-section-subtitle">@Model.Count() utilisateur(s) enregistr�(s)</p>
             </div>
         </div>
         <div class="table-responsive">
@@ -31,9 +31,9 @@
                     <tr>
                         <th>Nom</th>
                         <th>Email</th>
-                        <th>Téléphone</th>
+                        <th>T�l�phone</th>
                         <th>Statut</th>
-                        <th>Rôle</th>
+                        <th>R�le</th>
                         <th class="text-end">Actions</th>
                     </tr>
                 </thead>
@@ -59,22 +59,22 @@
                             <td>
                                 @if (u.Role == "Admin")
                                 {
-                                    <span class="status-badge" style="background: rgba(239, 68, 68, 0.1); color: var(--admin-danger);">👑 @u.Role</span>
+                                    <span class="status-badge" style="background: rgba(239, 68, 68, 0.1); color: var(--admin-danger);"><i class="bi bi-shield-fill-check"></i> @u.Role</span>
                                 }
                                 else
                                 {
-                                    <span class="status-badge" style="background: rgba(59, 130, 246, 0.1); color: var(--admin-info);">👤 @u.Role</span>
+                                    <span class="status-badge" style="background: rgba(59, 130, 246, 0.1); color: var(--admin-info);"><i class="bi bi-person"></i> @u.Role</span>
                                 }
                             </td>
                             <td class="text-end">
                                 <a href="/Utilisateurs/Details/@u.Id" class="btn-modern btn-modern-secondary btn-modern-sm me-1">
-                                    👁️ Détails
+                                    <i class="bi bi-eye"></i> Détails
                                 </a>
                                 <a href="/Utilisateurs/Edit/@u.Id" class="btn-modern btn-modern-secondary btn-modern-sm me-1">
-                                    ✏️ Modifier
+                                    <i class="bi bi-pencil"></i> Modifier
                                 </a>
                                 <a href="/Utilisateurs/Delete/@u.Id" class="btn-modern btn-modern-danger btn-modern-sm">
-                                    🗑️ Supprimer
+                                    <i class="bi bi-trash"></i> Supprimer
                                 </a>
                             </td>
                         </tr>
@@ -85,7 +85,7 @@
                     <tr>
                         <td colspan="6">
                             <div class="empty-state">
-                                <div class="empty-state-icon">👥</div>
+                                <div class="empty-state-icon">👤</div>
                                 <p class="empty-state-text">Aucun utilisateur trouvé</p>
                             </div>
                         </td>

@@ -1,4 +1,4 @@
-﻿@model Web_LW.Models.AdminDashboardViewModel
+@model Web_LW.Models.AdminDashboardViewModel
 @using System.Text.Json
 @{
     ViewData["Title"] = "Admin Dashboard";
@@ -15,25 +15,25 @@
 <div class="admin-container">
     <!-- Header moderne -->
     <div class="admin-header">
-        <div class="admin-header-icon">📊</div>
-        <h1>Bienvenue Admin 👋</h1>
-        <p>Gérez votre plateforme d'annonces depuis ce tableau de bord moderne et intuitif</p>
+        <div class="admin-header-icon"><i class="bi bi-speedometer2"></i></div>
+        <h1>Bienvenue Admin <i class="bi bi-hand-wave"></i></h1>
+        <p>G�rez votre plateforme d'annonces depuis ce tableau de bord moderne et intuitif</p>
     </div>
 
     <!-- Statistiques -->
     <div class="stats-grid">
         <div class="stat-card users">
-            <div class="stat-card-icon">👥</div>
+            <div class="stat-card-icon"><i class="bi bi-people"></i></div>
             <div class="stat-card-label">Utilisateurs</div>
             <div class="stat-card-value">@Model.TotalUsers</div>
         </div>
         <div class="stat-card categories">
-            <div class="stat-card-icon">🏷️</div>
+            <div class="stat-card-icon"><i class="bi bi-grid-3x3-gap"></i></div>
             <div class="stat-card-label">Catégories</div>
             <div class="stat-card-value">@Model.TotalCategories</div>
         </div>
         <div class="stat-card annonces">
-            <div class="stat-card-icon">📢</div>
+            <div class="stat-card-icon"><i class="bi bi-megaphone"></i></div>
             <div class="stat-card-label">Annonces</div>
             <div class="stat-card-value">@Model.TotalAnnonces</div>
         </div>
@@ -46,7 +46,7 @@
                 <div class="chart-card-header">
                     <div>
                         <h5 class="chart-card-title">Volume d'annonces</h5>
-                        <p class="chart-card-subtitle">Évolution sur les 6 derniers mois</p>
+                        <p class="chart-card-subtitle">�volution sur les 6 derniers mois</p>
                     </div>
                 </div>
                 <canvas id="monthlyChart" height="140"></canvas>
@@ -55,7 +55,7 @@
         <div class="col-lg-4">
             <div class="chart-card">
                 <div class="chart-card-header">
-                    <h5 class="chart-card-title">Par catégorie</h5>
+                    <h5 class="chart-card-title">Par cat�gorie</h5>
                 </div>
                 <canvas id="categoryChart" height="220"></canvas>
             </div>
@@ -66,7 +66,7 @@
         <div class="col-lg-4">
             <div class="chart-card">
                 <div class="chart-card-header">
-                    <h5 class="chart-card-title">Rôles utilisateurs</h5>
+                    <h5 class="chart-card-title">R�les utilisateurs</h5>
                 </div>
                 <canvas id="roleChart" height="220"></canvas>
             </div>
@@ -81,15 +81,15 @@
                 </div>
                 <div class="detail-info-grid">
                     <div class="detail-info-item">
-                        <div class="detail-info-label">👥 Utilisateurs</div>
+                        <div class="detail-info-label"><i class="bi bi-people"></i> Utilisateurs</div>
                         <div class="detail-info-value">@Model.TotalUsers</div>
                     </div>
                     <div class="detail-info-item">
-                        <div class="detail-info-label">🏷️ Catégories</div>
+                        <div class="detail-info-label"><i class="bi bi-grid-3x3-gap"></i> Catégories</div>
                         <div class="detail-info-value">@Model.TotalCategories</div>
                     </div>
                     <div class="detail-info-item">
-                        <div class="detail-info-label">📢 Annonces</div>
+                        <div class="detail-info-label"><i class="bi bi-megaphone"></i> Annonces</div>
                         <div class="detail-info-value">@Model.TotalAnnonces</div>
                     </div>
                 </div>
@@ -99,19 +99,19 @@
 
     <!-- Actions rapides -->
     <div class="quick-actions-section">
-        <h2 class="quick-actions-title">⚡ Actions rapides</h2>
+        <h2 class="quick-actions-title"><i class="bi bi-lightning"></i> Actions rapides</h2>
         <div class="quick-actions-grid">
             <a asp-controller="Utilisateurs" asp-action="Index" class="action-card action-card-primary">
-                <span class="action-card-icon">👥</span>
+                <span class="action-card-icon"><i class="bi bi-people"></i></span>
                 <span class="action-card-text">Gérer les utilisateurs</span>
             </a>
             <a asp-controller="Categories" asp-action="Index" class="action-card action-card-secondary">
-                <span class="action-card-icon">🏷️</span>
+                <span class="action-card-icon"><i class="bi bi-grid-3x3-gap"></i></span>
                 <span class="action-card-text">Gérer les catégories</span>
             </a>
             <a asp-controller="AdminAnnonces" asp-action="Index" class="action-card action-card-tertiary">
-                <span class="action-card-icon">📢</span>
-                <span class="action-card-text">Gérer les annonces</span>
+                <span class="action-card-icon"><i class="bi bi-megaphone"></i></span>
+                <span class="action-card-text">G�rer les annonces</span>
             </a>
         </div>
     </div>
@@ -120,8 +120,8 @@
     <div class="table-section">
         <div class="table-section-header">
             <div>
-                <h2 class="table-section-title">Dernières annonces</h2>
-                <p class="table-section-subtitle">Vue d'ensemble des annonces récentes sur la plateforme</p>
+                <h2 class="table-section-title">Derni�res annonces</h2>
+                <p class="table-section-subtitle">Vue d'ensemble des annonces r�centes sur la plateforme</p>
             </div>
             @if (TempData["AdminMessage"] != null)
             {
@@ -135,7 +135,7 @@
                         <th>#</th>
                         <th>Titre</th>
                         <th>Utilisateur</th>
-                        <th>Catégorie</th>
+                        <th>Cat�gorie</th>
                         <th>Date</th>
                         <th>Statut</th>
                         <th class="text-end">Actions</th>
@@ -164,12 +164,12 @@
                             </td>
                             <td class="text-end">
                                 <a asp-controller="AdminAnnonces" asp-action="Details" asp-route-id="@a.Id" class="btn-modern btn-modern-secondary btn-modern-sm me-1">
-                                    👁️ Voir
+                                    <i class="bi bi-eye"></i> Voir
                                 </a>
                                 <form asp-action="DeleteAnnonce" method="post" class="d-inline" onsubmit="return confirm('Supprimer cette annonce ?');">
                                     @Html.AntiForgeryToken()
                                     <input type="hidden" name="id" value="@a.Id" />
-                                    <button class="btn-modern btn-modern-danger btn-modern-sm">🗑️ Supprimer</button>
+                                    <button class="btn-modern btn-modern-danger btn-modern-sm"><i class="bi bi-trash"></i> Supprimer</button>
                                 </form>
                             </td>
                         </tr>
@@ -180,7 +180,7 @@
                     <tr>
                         <td colspan="7">
                             <div class="empty-state">
-                                <div class="empty-state-icon">📭</div>
+                                <div class="empty-state-icon"><i class="bi bi-inbox"></i></div>
                                 <p class="empty-state-text">Aucune annonce pour le moment</p>
                             </div>
                         </td>

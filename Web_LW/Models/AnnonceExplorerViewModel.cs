@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Web_LW.Entities;
 
 namespace Web_LW.Models
 {

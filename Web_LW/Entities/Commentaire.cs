@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 
-namespace Web_LW.Models
+namespace Web_LW.Entities
 {
     public class Commentaire
     {

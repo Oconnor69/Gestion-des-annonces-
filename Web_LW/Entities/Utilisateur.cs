@@ -1,6 +1,6 @@
-﻿using Web_LW.Models;
+using System.Collections.Generic;
 
-namespace Web_LW.Models
+namespace Web_LW.Entities
 {
     public class Utilisateur
     {

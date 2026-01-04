@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Web_LW.Models;
+using Web_LW.Data;
+using Web_LW.Entities;
 
 public class AnnoncesController : Controller
 {

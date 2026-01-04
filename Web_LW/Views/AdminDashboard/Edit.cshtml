@@ -1,4 +1,4 @@
-﻿@model Web_LW.Models.Annonce
+@model Web_LW.Entities.Annonce
 
 @{
     ViewData["Title"] = "Modifier l'annonce";
@@ -9,9 +9,9 @@
 <div class="admin-container">
     <!-- Header -->
     <div class="admin-header">
-        <div class="admin-header-icon">✏️</div>
+        <div class="admin-header-icon"><i class="bi bi-pencil-square"></i></div>
         <h1>Modifier l'annonce</h1>
-        <p>Édition des détails de l'annonce #@Model.Id</p>
+        <p>�dition des d�tails de l'annonce #@Model.Id</p>
     </div>
 
     <!-- Formulaire -->
@@ -19,7 +19,7 @@
         <form asp-action="Edit" enctype="multipart/form-data">
             <input type="hidden" asp-for="Id" />
 
-            <h3 style="font-weight: 700; margin-bottom: 1.5rem; color: var(--admin-dark);">📋 Informations générales</h3>
+            <h3 style="font-weight: 700; margin-bottom: 1.5rem; color: var(--admin-dark);"><i class="bi bi-info-circle"></i> Informations générales</h3>
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label class="form-label">Titre</label>
@@ -41,7 +41,7 @@
                     <select asp-for="Statut" name="annonceModif.Statut" class="form-select">
                         <option value="Active">Active</option>
                         <option value="Vendue">Vendue</option>
-                        <option value="Louee">Louée</option>
+                        <option value="Louee">Lou�e</option>
                     </select>
                 </div>
             </div>
@@ -54,25 +54,25 @@
             @if (Model.Voiture != null)
             {
                 <hr style="margin: 2rem 0; border-top: 2px solid var(--admin-light);" />
-                <h3 style="font-weight: 700; margin-bottom: 1.5rem; color: var(--admin-dark);">🚗 Détails du véhicule</h3>
+                <h3 style="font-weight: 700; margin-bottom: 1.5rem; color: var(--admin-dark);"><i class="bi bi-car-front"></i> Détails du véhicule</h3>
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <label class="form-label">Marque</label>
                         <input asp-for="Voiture.Marque" name="voitureModif.Marque" class="form-control" />
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label class="form-label">Modèle</label>
+                        <label class="form-label">Mod�le</label>
                         <input asp-for="Voiture.Modele" name="voitureModif.Modele" class="form-control" />
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label class="form-label">Année</label>
+                        <label class="form-label">Ann�e</label>
                         <input asp-for="Voiture.Annee" name="voitureModif.Annee" class="form-control" />
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label class="form-label">Kilométrage</label>
+                        <label class="form-label">Kilom�trage</label>
                         <input asp-for="Voiture.Kilometrage" name="voitureModif.Kilometrage" class="form-control" />
                     </div>
                     <div class="col-md-6 mb-3">
@@ -81,26 +81,26 @@
                             <option value="Diesel">Diesel</option>
                             <option value="Essence">Essence</option>
                             <option value="Hybride">Hybride</option>
-                            <option value="Electrique">Électrique</option>
+                            <option value="Electrique">�lectrique</option>
                         </select>
                     </div>
                 </div>
             }
 
             <hr style="margin: 2rem 0; border-top: 2px solid var(--admin-light);" />
-            <h3 style="font-weight: 700; margin-bottom: 1.5rem; color: var(--admin-dark);">📷 Photos</h3>
+            <h3 style="font-weight: 700; margin-bottom: 1.5rem; color: var(--admin-dark);"><i class="bi bi-images"></i> Photos</h3>
             <div class="mb-4">
-                <label class="form-label">Ajouter des photos supplémentaires</label>
+                <label class="form-label">Ajouter des photos suppl�mentaires</label>
                 <input type="file" name="photos" multiple class="form-control" accept="image/*" />
-                <small class="text-muted">Vous pouvez sélectionner plusieurs photos à la fois</small>
+                <small class="text-muted">Vous pouvez s�lectionner plusieurs photos � la fois</small>
             </div>
 
             <div class="d-flex gap-2">
                 <button type="submit" class="btn-modern btn-modern-primary">
-                    💾 Enregistrer les modifications
+                    <i class="bi bi-check-lg"></i> Enregistrer les modifications
                 </button>
                 <a asp-action="MesAnnonces" class="btn-modern btn-modern-secondary">
-                    ← Annuler
+                    <i class="bi bi-x-lg"></i> Annuler
                 </a>
             </div>
         </form>

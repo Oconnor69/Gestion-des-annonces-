@@ -1,8 +1,254 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+@{
+    ViewData["Title"] = "Accueil";
+    var isConnected = !string.IsNullOrEmpty(Context.Session.GetString("UserId"));
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style>
+    .hero-section {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 80px 0;
+        color: white;
+        border-radius: 20px;
+        margin-bottom: 60px;
+        position: relative;
+        overflow: hidden;
+    }
+    .hero-section::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -20%;
+        width: 600px;
+        height: 600px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+    }
+    .hero-section::after {
+        content: '';
+        position: absolute;
+        bottom: -30%;
+        left: -10%;
+        width: 400px;
+        height: 400px;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 50%;
+    }
+    .hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 700px;
+        margin: 0 auto;
+        text-align: center;
+    }
+    .hero-title {
+        font-size: 3.5rem;
+        font-weight: 800;
+        margin-bottom: 20px;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+    .hero-subtitle {
+        font-size: 1.3rem;
+        margin-bottom: 35px;
+        opacity: 0.95;
+    }
+    .hero-buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .btn-hero {
+        padding: 15px 40px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border-radius: 50px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .btn-hero-primary {
+        background: white;
+        color: #667eea;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    .btn-hero-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        color: #667eea;
+    }
+    .btn-hero-secondary {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        border: 2px solid white;
+    }
+    .btn-hero-secondary:hover {
+        background: white;
+        color: #667eea;
+        transform: translateY(-3px);
+    }
+    .features-section {
+        margin-bottom: 60px;
+    }
+    .section-title {
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 50px;
+        color: #1f2937;
+    }
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        margin-bottom: 40px;
+    }
+    .feature-card {
+        background: white;
+        padding: 35px 25px;
+        border-radius: 20px;
+        text-align: center;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    .feature-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    }
+    .feature-icon {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 20px;
+        font-size: 2.5rem;
+    }
+    .feature-icon-1 {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+    }
+    .feature-icon-2 {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        color: white;
+    }
+    .feature-icon-3 {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        color: white;
+    }
+    .feature-icon-4 {
+        background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        color: white;
+    }
+    .feature-title {
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin-bottom: 12px;
+        color: #1f2937;
+    }
+    .feature-description {
+        color: #6b7280;
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+    .cta-section {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        padding: 60px 40px;
+        border-radius: 20px;
+        text-align: center;
+        color: white;
+    }
+    .cta-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+    .cta-text {
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+        opacity: 0.95;
+    }
+</style>
+
+<div class="hero-section">
+    <div class="hero-content">
+        <h1 class="hero-title">Bienvenue sur REkLAM</h1>
+        <p class="hero-subtitle">La plateforme moderne pour publier et trouver des annonces facilement. Immobilier, voitures et bien plus encore !</p>
+        <div class="hero-buttons">
+            @if (!isConnected)
+            {
+                <a asp-controller="Auth" asp-action="Login" class="btn-hero btn-hero-primary">
+                    <i class="bi bi-box-arrow-in-right"></i>
+                    Se connecter
+                </a>
+                <a asp-controller="Auth" asp-action="Register" class="btn-hero btn-hero-secondary">
+                    <i class="bi bi-person-plus"></i>
+                    Créer un compte
+                </a>
+            }
+            else
+            {
+                <a asp-controller="Annonces" asp-action="ChoisirCategorie" class="btn-hero btn-hero-primary">
+                    <i class="bi bi-plus-circle"></i>
+                    Créer une annonce
+                </a>
+                <a asp-controller="Explorer" asp-action="Index" class="btn-hero btn-hero-secondary">
+                    <i class="bi bi-compass"></i>
+                    Explorer les annonces
+                </a>
+            }
+        </div>
+    </div>
 </div>
+
+<div class="features-section">
+    <h2 class="section-title">Pourquoi choisir notre plateforme ?</h2>
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon feature-icon-1">
+                <i class="bi bi-lightning-charge-fill"></i>
+            </div>
+            <h3 class="feature-title">Rapide et Simple</h3>
+            <p class="feature-description">Publiez vos annonces en quelques clics avec notre interface intuitive et moderne.</p>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon feature-icon-2">
+                <i class="bi bi-shield-fill-check"></i>
+            </div>
+            <h3 class="feature-title">Sécurisé</h3>
+            <p class="feature-description">Vos données et transactions sont protégées par nos systèmes de sécurité avancés.</p>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon feature-icon-3">
+                <i class="bi bi-search"></i>
+            </div>
+            <h3 class="feature-title">Recherche Avancée</h3>
+            <p class="feature-description">Trouvez exactement ce que vous cherchez grâce à nos filtres de recherche puissants.</p>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon feature-icon-4">
+                <i class="bi bi-people-fill"></i>
+            </div>
+            <h3 class="feature-title">Communauté Active</h3>
+            <p class="feature-description">Rejoignez des milliers d'utilisateurs qui publient et trouvent des annonces chaque jour.</p>
+        </div>
+    </div>
+</div>
+
+@if (!isConnected)
+{
+    <div class="cta-section">
+        <h2 class="cta-title">Prêt à commencer ?</h2>
+        <p class="cta-text">Inscrivez-vous maintenant et commencez à publier vos annonces gratuitement !</p>
+        <a asp-controller="Auth" asp-action="Register" class="btn-hero btn-hero-primary">
+            <i class="bi bi-rocket-takeoff"></i>
+            Créer mon compte gratuitement
+        </a>
+    </div>
+}

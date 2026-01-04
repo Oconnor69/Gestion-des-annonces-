@@ -1,19 +1,19 @@
-﻿@model IEnumerable<Web_LW.Models.Categorie>
+@model IEnumerable<Web_LW.Entities.Categorie>
 
 <link rel="stylesheet" href="~/css/admin.css" />
 
 <div class="admin-container">
     <!-- Header -->
     <div class="admin-header">
-        <div class="admin-header-icon">🏷️</div>
-        <h1>Gestion des catégories</h1>
-        <p>Organisez et gérez les catégories d'annonces de votre plateforme</p>
+        <div class="admin-header-icon"><i class="bi bi-grid-3x3-gap"></i></div>
+        <h1>Gestion des cat�gories</h1>
+        <p>Organisez et g�rez les cat�gories d'annonces de votre plateforme</p>
     </div>
 
     <!-- Action button -->
     <div class="mb-4">
         <a href="/Categories/Create" class="btn-modern btn-modern-primary">
-            ➕ Ajouter une catégorie
+            <i class="bi bi-plus-lg"></i> Ajouter une catégorie
         </a>
     </div>
 
@@ -21,8 +21,8 @@
     <div class="table-section">
         <div class="table-section-header">
             <div>
-                <h2 class="table-section-title">Liste des catégories</h2>
-                <p class="table-section-subtitle">@Model.Count() catégorie(s) au total</p>
+                <h2 class="table-section-title">Liste des cat�gories</h2>
+                <p class="table-section-subtitle">@Model.Count() cat�gorie(s) au total</p>
             </div>
         </div>
         <div class="table-responsive">
@@ -30,7 +30,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Nom de la catégorie</th>
+                        <th>Nom de la cat�gorie</th>
                         <th class="text-end">Actions</th>
                     </tr>
                 </thead>
@@ -44,10 +44,10 @@
                             <td><strong>@c.Nom</strong></td>
                             <td class="text-end">
                                 <a class="btn-modern btn-modern-secondary btn-modern-sm me-1" href="/Categories/Edit/@c.Id">
-                                    ✏️ Modifier
+                                    <i class="bi bi-pencil"></i> Modifier
                                 </a>
                                 <a class="btn-modern btn-modern-danger btn-modern-sm" href="/Categories/Delete/@c.Id">
-                                    🗑️ Supprimer
+                                    <i class="bi bi-trash"></i> Supprimer
                                 </a>
                             </td>
                         </tr>
@@ -58,8 +58,8 @@
                     <tr>
                         <td colspan="3">
                             <div class="empty-state">
-                                <div class="empty-state-icon">🏷️</div>
-                                <p class="empty-state-text">Aucune catégorie créée</p>
+                                <div class="empty-state-icon"><i class="bi bi-inbox"></i></div>
+                                <p class="empty-state-text">Aucune cat�gorie cr��e</p>
                             </div>
                         </td>
                     </tr>

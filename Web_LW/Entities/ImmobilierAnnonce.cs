@@ -1,4 +1,4 @@
-﻿namespace Web_LW.Models
+namespace Web_LW.Entities
 {
     public class ImmobilierAnnonce
     {
@@ -31,5 +31,4 @@
         public int AnnonceId { get; set; }
         public Annonce Annonce { get; set; }
     }
-
 }

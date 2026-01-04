@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Web_LW.Data;
+using Web_LW.Entities;
 using BCrypt.Net;
+
 namespace Web_LW.Controllers;
-using Web_LW.Models;
 
 public class UtilisateursController : Controller
 {

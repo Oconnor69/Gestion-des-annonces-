@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Web_LW.Entities;
 
-namespace Web_LW.Models
+namespace Web_LW.Data
 {
     public class AppDbContext : DbContext
     {
@@ -11,9 +12,7 @@ namespace Web_LW.Models
 
         public DbSet<Utilisateur> Utilisateurs { get; set; }
         public DbSet<Categorie> Categories { get; set; }
-
         public DbSet<VoitureAnnonce> VoitureAnnonces { get; set; }
-
         public DbSet<Annonce> Annonces { get; set; }
         public DbSet<AnnoncePhoto> AnnoncePhotos { get; set; }
         public DbSet<Commentaire> Commentaires { get; set; }
@@ -41,8 +40,7 @@ namespace Web_LW.Models
                 .HasMany(a => a.Commentaires)
                 .WithOne(c => c.Annonce)
                 .HasForeignKey(c => c.AnnonceId)
-               .OnDelete(DeleteBehavior.NoAction);
-
+                .OnDelete(DeleteBehavior.NoAction);
 
             // Utilisateur - Commentaire
             modelBuilder.Entity<Commentaire>()
@@ -73,11 +71,10 @@ namespace Web_LW.Models
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Annonce>()
-            .HasOne(a => a.Immobilier)
-            .WithOne(i => i.Annonce)
-            .HasForeignKey<ImmobilierAnnonce>(i => i.AnnonceId)
-            .OnDelete(DeleteBehavior.Cascade);
-
+                .HasOne(a => a.Immobilier)
+                .WithOne(i => i.Annonce)
+                .HasForeignKey<ImmobilierAnnonce>(i => i.AnnonceId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
